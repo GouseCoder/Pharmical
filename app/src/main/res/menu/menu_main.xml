@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Dahboard"
+        android:id="@+id/miDashboard"
+        />
+
+    <item
+        android:title="Products"
+        android:id="@+id/miProducts"
+        />
+
+    <item
+        android:title="Sell"
+        android:id="@+id/miSellProduct"
+        />
+
+    <item
+        android:title="Sales Today"
+        android:id="@+id/miSalesToday"
+        />
+
+</menu>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/miDashboard"
+        android:title="Dashboard"
+        />
+    <item
+        android:id="@+id/miSellProduct"
+        android:icon="@drawable/sellproduct"
+        android:title="Sell Product"
+        />
+    <item
+        android:id="@+id/miSalesToday"
+        android:icon="@drawable/salestoday"
+        android:title="Sales Today"
+        />
+    <item
+        android:id="@+id/miSalesAll"
+        android:icon="@drawable/allsales"
+        android:title="Sales All"
+        />
+    <item
+        android:id="@+id/miProducts"
+        android:icon="@drawable/allproducts"
+        android:title="All Products"
+        />
+    <item
+        android:id="@+id/miProductsRecord"
+        android:title="Products Record"
+        />
+    <item
+        android:id="@+id/miProductsNotice"
+        android:title="Less Products"
+        />
+    <item
+        android:id="@+id/miExpiringProducts"
+        android:title="Expiring Products"
+        />
+    <item
+        android:id="@+id/miExpiredProducts"
+        android:title="Expired Products"
+        />
+
+    <item
+        android:id="@+id/miInvoices"
+        android:title="Invoices"
+        />
+    <item
+        android:id="@+id/miSellers"
+        android:title="All Supplier"
+        />
+    <item
+        android:id="@+id/miAddSeller"
+        android:title="Add Supplier"
+        />
+    <item
+        android:id="@+id/miAdmins"
+        android:title="All Customers"
+        />
+    <item
+        android:id="@+id/miAddAdmin"
+        android:title="Add Customers"
+        />
+    <item
+        android:id="@+id/miAddProduct"
+        android:title="Add Product"
+        />
+    <item
+        android:id="@+id/miAddProductInfo"
+        android:title="Add Products Info"
+        />
+
+    <item android:title="Settings">
+        <menu>
+
+            <item
+                android:id="@+id/miLogout"
+                android:title="Logout"
+                />
+            <item
+                android:id="@+id/miSetting"
+                android:title="Settings"
+                />
+            <item
+                android:id="@+id/miAboutUs"
+                android:title="About Us"
+                />
+            <item
+                android:id="@+id/miContactUs"
+                android:title="Contact Us"
+                />
+        </menu>
+    </item>
+
+</menu>
