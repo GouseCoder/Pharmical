@@ -62,10 +62,6 @@ public class AdapterProduct extends FirebaseRecyclerAdapter<ModelProduct, Adapte
         return new ViewHolder(view);
     }
 
-    /*public int getItemCount() {
-        return products.size();
-    }*/
-
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{

@@ -25,10 +25,13 @@
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/fragment_products.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/fragment_products_notice.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/fragment_sell_product.xml" value="0.24864130434782608" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/fragment_suppliers.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/row_product.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/row_sale.xml" value="0.24864130434782608" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/row_sale_editable.xml" value="0.24864130434782608" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/row_seller.xml" value="0.23641304347826086" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/shimmer_product.xml" value="0.25416666666666665" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/shimmer_seller.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/menu/menu_call.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/menu/menu_close.xml" value="0.13020833333333334" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/menu/menu_drawer.xml" value="0.13020833333333334" />
