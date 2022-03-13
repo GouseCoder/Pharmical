@@ -1,7 +1,9 @@
 package com.example.myapplication.Activities;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -12,7 +14,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,13 +27,12 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
-
-    //FirebaseAuth auth;
-    //GoogleSignInClient mGoogleSignInClient;
+    ProgressDialog progressDialog;
+    FirebaseAuth fauth;
     Button button;
-    TextView registertext;
+    TextView registertext, forgotpassword;
     ImageView btnGoogle;
-    TextInputLayout username_var, password_var;
+    TextInputLayout email_var, password_var;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,16 +40,34 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //Init
+        progressDialog = new ProgressDialog(LoginActivity.this);
+        progressDialog.setTitle("Logging in");
+        progressDialog.setMessage("You're getting logged in");
+
         button = findViewById(R.id.loginbutton);
         registertext = findViewById(R.id.registertext);
-        username_var = findViewById(R.id.username_text_field_design);
+        forgotpassword = findViewById(R.id.forgotpassword);
+        email_var = findViewById(R.id.username_text_field_design);
         password_var = findViewById(R.id.password);
+        fauth = FirebaseAuth.getInstance();
         btnGoogle = findViewById(R.id.btnGoogle);
+
+        if(fauth.getCurrentUser()!=null){
+            sendToMain();
+        }
 
         registertext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), com.example.myapplication.Activities.SignupActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        forgotpassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ForgotpasswdActivity.class);
                 startActivity(intent);
             }
         });
@@ -54,68 +77,49 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    private void validateData()
-    {
-        String username_ = username_var.getEditText().getText().toString();
+    private void validateData() {
+        String email = email_var.getEditText().getText().toString();
         String password_ = password_var.getEditText().getText().toString();
-        if(username_.isEmpty()){
-            username_var.setError("Enter Name");
-            username_var.requestFocus();
+        if(email.isEmpty()){
+            email_var.setError("Enter email");
+            email_var.requestFocus();
             return;
         }
-        if (password_.isEmpty())
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
         {
+            email_var.setError("Enter Valid Email");
+            email_var.requestFocus();
+            return;
+        }
+        if (password_.isEmpty()) {
             password_var.setError("Enter Password");
             password_var.requestFocus();
             return;
         }
-        if (password_.length()<7)
-        {
+        if (password_.length() < 7) {
             password_var.setError("Enter Valid Password");
             password_var.requestFocus();
             return;
-        }
-        else
-        {
-            final String medname_data = username_var.getEditText().getText().toString();
-            final String password_data = password_var.getEditText().getText().toString();
-
-            FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = firebaseDatabase.getReference("users");
-            Query check_username = myRef.orderByChild("medname").equalTo(medname_data);
-            check_username.addListenerForSingleValueEvent(new ValueEventListener() {
+        } else {
+            String email_s = email_var.getEditText().getText().toString();
+            String password_s = password_var.getEditText().getText().toString();
+            progressDialog.show();
+            fauth.signInWithEmailAndPassword(email_s,password_s).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if(dataSnapshot.exists()){
-                        username_var.setError(null);
-                        username_var.setErrorEnabled(false);
-                        String password_check = dataSnapshot.child(medname_data).child("password").getValue(String.class);
-                        if(password_check.equals(password_data)){
-                            password_var.setError(null);
-                            password_var.setErrorEnabled(false);
-                            Toast.makeText(getApplicationContext(),"Login successfully",Toast.LENGTH_SHORT).show();
-
-                            sendToMain();
-                            finish();
-
-                        }else {
-                            password_var.setError("Incorrect Password");
-                        }
-                    }else {
-                        username_var.setError("No user found");
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+                        Toast.makeText(getApplicationContext(), "Loggedin Successfully", Toast.LENGTH_SHORT).show();
+                        sendToMain();
                     }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                    else {
+                        Toast.makeText(getApplicationContext(), "Error ! "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
                 }
             });
         }
+
     }
-
-
-
 
     private void sendToMain()
     {

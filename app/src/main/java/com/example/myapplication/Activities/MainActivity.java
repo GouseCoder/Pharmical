@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.example.myapplication.Fragments.SuppliersFragment;
 import com.example.myapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
@@ -122,7 +124,9 @@ public class MainActivity extends AppCompatActivity {
                     break;
 
                 case R.id.miLogout:
-                    //doLogout();
+                    FirebaseAuth.getInstance().signOut();
+                    sendToLogin();
+                    finish();
                     break;
                 default:
                     Toast.makeText(MainActivity.this, "Working On It", Toast.LENGTH_SHORT).show();
@@ -157,9 +161,18 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+
     }
     public void setFragment(Fragment fragment)
     {
         getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout,fragment).commit();
+    }
+
+    public void sendToLogin()
+    {
+        Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finishAffinity();
     }
 }

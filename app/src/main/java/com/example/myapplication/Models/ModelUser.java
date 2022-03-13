@@ -1,18 +1,16 @@
 package com.example.myapplication.Models;
 
 public class ModelUser {
-    String email,medname,contact,password,confirmpassword;
+    String email,medname,contact;
 
     public ModelUser() {
 
     }
 
-    public ModelUser(String email, String medname, String contact, String password, String confirmpassword) {
+    public ModelUser(String email, String medname, String contact) {
         this.email = email;
         this.medname = medname;
         this.contact = contact;
-        this.password = password;
-        this.confirmpassword = confirmpassword;
     }
 
     public String getEmail() {
@@ -39,21 +37,7 @@ public class ModelUser {
         this.contact = contact;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getConfirmpassword() {
-        return confirmpassword;
-    }
-
-    public void setConfirmpassword(String confirmpassword) {
-        this.confirmpassword = confirmpassword;
-    }
 }
 
 

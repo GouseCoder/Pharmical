@@ -55,14 +55,6 @@
         android:title="Add Supplier"
         />
     <item
-        android:id="@+id/miAdmins"
-        android:title="All Customers"
-        />
-    <item
-        android:id="@+id/miAddAdmin"
-        android:title="Add Customers"
-        />
-    <item
         android:id="@+id/miAddProduct"
         android:title="Add Product"
         />

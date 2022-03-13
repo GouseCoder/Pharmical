@@ -3,21 +3,29 @@ package com.example.myapplication.Activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.Models.ModelUser;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
     Button button4;
-    TextInputLayout email_var, medname_var,contact_var, pass_var, comfirmpass_var;
+    TextInputLayout email_var, medname_var,contact_var, pass_var;
     ProgressDialog progressDialog;
+    FirebaseAuth fauth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,24 +41,28 @@ public class SignupActivity extends AppCompatActivity {
         medname_var = findViewById(R.id.medicalnmenamefield);
         contact_var = findViewById(R.id.contactfield);
         pass_var = findViewById(R.id.passwordfield);
-        comfirmpass_var = findViewById(R.id.confirmpasswordfield);
+
+        fauth = FirebaseAuth.getInstance();
+        if(fauth.getCurrentUser()!=null){
+            sendToMain();
+        }
+
 
         button4.setOnClickListener(v->validateData());
 
     }
-        //progressDialog.show();
+        //
     private void validateData(){
         String email = email_var.getEditText().getText().toString();
         String medname = medname_var.getEditText().getText().toString();
         String contact = contact_var.getEditText().getText().toString();
         String password = pass_var.getEditText().getText().toString();
-        String confirmpassword = comfirmpass_var.getEditText().getText().toString();
         if(email.isEmpty()){
             email_var.setError("Enter email");
             email_var.requestFocus();
             return;
         }
-        if (!email.matches("^(.+)@(.+)$"))
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
         {
             email_var.setError("Enter Valid Email");
             email_var.requestFocus();
@@ -89,43 +101,56 @@ public class SignupActivity extends AppCompatActivity {
             pass_var.requestFocus();
             return;
         }
-        if(confirmpassword.isEmpty()){
-            comfirmpass_var.setError("Enter Password");
-            comfirmpass_var.requestFocus();
-            return;
-        }
-        /*if(confirmpassword!=password){
-            comfirmpass_var.setError("Password not match!");
-            comfirmpass_var.requestFocus();
-            Helper.playVibrate();
-            Helper.playError();
-            return;
-        }*/
         else
         {
-            FirebaseDatabase firebasedatabase = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = firebasedatabase.getReference("users");
+                    String email_s = email_var.getEditText().getText().toString();
+                    String medname_s = medname_var.getEditText().getText().toString();
+                    String contact_s = contact_var.getEditText().getText().toString();
+                    String password_s = pass_var.getEditText().getText().toString();
 
-            String email_s = email_var.getEditText().getText().toString();
-            String medname_s = medname_var.getEditText().getText().toString();
-            String contact_s = contact_var.getEditText().getText().toString();
-            String password_s = pass_var.getEditText().getText().toString();
-            String confirmpassword_s = comfirmpass_var.getEditText().getText().toString();
-
-            ModelUser storingdatass = new ModelUser(email_s,medname_s,contact_s,password_s,confirmpassword_s);
-            myRef.child(medname_s).setValue(storingdatass);
-            Toast.makeText(getApplicationContext(),"Registered successfully",Toast.LENGTH_SHORT).show();
-            sendToLogin();
+                    fauth.createUserWithEmailAndPassword(email_s,password_s).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if(task.isSuccessful()){
+                                ModelUser user = new ModelUser(email_s,medname_s,contact_s);
+                                FirebaseDatabase.getInstance().getReference("users")
+                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                        .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
+                                            progressDialog.show();
+                                            sendToLogin();
+                                        }
+                                        else{
+                                            Toast.makeText(getApplicationContext(), "Error ! "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                            progressDialog.dismiss();
+                                        }
+                                    }
+                                });
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Error ! "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                progressDialog.dismiss();
+                            }
+                        }
+                    });
+                }
 
 
         }
-
-    }
 
     public void sendToLogin()
     {
         Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finishAffinity();
+    }
+    private void sendToMain()
+    {
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         finishAffinity();
     }

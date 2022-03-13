@@ -1,8 +1,10 @@
 package com.example.myapplication.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -15,15 +17,17 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.myapplication.Models.ModelProduct;
+
 import com.example.myapplication.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.myapplication.etc.Scanner;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
 
 import java.util.ArrayList;
@@ -32,9 +36,10 @@ import java.util.List;
 
 public class AddProductFragment extends Fragment {
     int price, quantity;
-    String  manMonthName, manYearName, expMonthName, expYearName = "";
-    EditText inputProductPrice, inputProductQuantity;
+    String  barCode, manMonthName, manYearName, expMonthName, expYearName = "";
+    EditText inputProductPrice, inputProductQuantity, inputProductBarcode;
     Button btnAddProduct;
+    private TextInputLayout tilBarcode;
     SearchableSpinner spbrand, spcategory, spsize, splocation, spitem, spinnerManufactureMonth, spinnerManufactureYear, spinnerExpireMonth, spinnerExpireYear;;
     DatabaseReference databaseReference0, databaseReference1, databaseReference2, databaseReference3, databaseReference4;
     ArrayList<String> brandList = new ArrayList<String>();
@@ -51,6 +56,17 @@ public class AddProductFragment extends Fragment {
 
         init(view);
         setSpinner();
+
+        tilBarcode.setEndIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                scanCode();
+            }
+        });
+
+
+
+
         //addProduct();
 
         databaseReference1.addValueEventListener(new ValueEventListener() {
@@ -160,6 +176,29 @@ public class AddProductFragment extends Fragment {
 
         return view;
     }
+
+
+    private void scanCode() {
+        IntentIntegrator intentIntegrator = new IntentIntegrator(getActivity());
+        intentIntegrator.setCaptureActivity(Scanner.class);
+        intentIntegrator.setOrientationLocked(true);
+        intentIntegrator.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        intentIntegrator.setPrompt("Sell Products By Scanning Bar Code");
+        intentIntegrator.forSupportFragment(AddProductFragment.this).initiateScan();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() != null)
+                inputProductBarcode.setText(String.valueOf(result.getContents()));
+            else
+                Toast.makeText(getContext(), "Cancelled", Toast.LENGTH_SHORT).show();
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
     private void init(View view) {
 
         databaseReference0 = FirebaseDatabase.getInstance().getReference("ProductName");
@@ -179,8 +218,10 @@ public class AddProductFragment extends Fragment {
         spinnerExpireYear = view.findViewById(R.id.spinnerExpireYear);
         inputProductPrice = view.findViewById(R.id.inputProductPrice);
         inputProductQuantity = view.findViewById(R.id.inputProductQuantity);
+        inputProductBarcode = view.findViewById(R.id.inputProductBarcode);
         btnAddProduct = view.findViewById(R.id.btnAddProduct);
-
+        tilBarcode = view.findViewById(R.id.tilBarcode);
+        barCode = inputProductBarcode.getText().toString().trim();
 
 
 

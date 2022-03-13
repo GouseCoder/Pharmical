@@ -7,7 +7,7 @@
     android:layout_gravity="center"
     android:focusableInTouchMode="true"
     android:gravity="center"
-    tools:context=".activities.SignupActivity">
+    tools:context=".Activities.SignupActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -107,22 +107,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Password"
-                        app:passwordToggleEnabled="true">
-
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textPassword" />
-
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/confirmpasswordfield"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Confirm Password"
                         app:passwordToggleEnabled="true">
 
 
