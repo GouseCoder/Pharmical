@@ -8,7 +8,7 @@ import java.util.List;
 
 public class DbHandler extends Pharmical {
 
-    public static int productId;
+    public static String productId;
     private static List<ModelProduct> modelProductList;
 
     public static List<ModelProduct> getModelProductList() {
@@ -24,17 +24,17 @@ public class DbHandler extends Pharmical {
 //        return modelSales;
 //    }
 
-    public static void setProductId(int pid) {
+    public static void setProductId(String pid) {
         productId = pid;
     }
 
-    public static int getProductId() {
+    public static String getProductId() {
         return productId;
     }
 
     public static void removeProductId()
     {
-        productId = 0;
+        productId = "";
     }
 
     //No in use

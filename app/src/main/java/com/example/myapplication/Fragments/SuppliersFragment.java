@@ -36,7 +36,7 @@ public class SuppliersFragment extends Fragment {
                         .setQuery(FirebaseDatabase.getInstance().getReference().child("Suppliers"), ModelSupplier.class)
                         .build();
 
-        adapterSuppliers = new AdapterSuppliers(options);
+        adapterSuppliers = new AdapterSuppliers(getContext(), options);
         recyclerView.setAdapter(adapterSuppliers);
         return view;
     }

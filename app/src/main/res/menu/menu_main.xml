@@ -3,21 +3,25 @@
 
     <item
         android:title="Dahboard"
+        android:icon="@drawable/dashboard"
         android:id="@+id/miDashboard"
         />
 
     <item
         android:title="Products"
+        android:icon="@drawable/products"
         android:id="@+id/miProducts"
         />
 
     <item
         android:title="Sell"
+        android:icon="@drawable/sellproduct"
         android:id="@+id/miSellProduct"
         />
 
     <item
         android:title="Sales Today"
+        android:icon="@drawable/events"
         android:id="@+id/miSalesToday"
         />
 

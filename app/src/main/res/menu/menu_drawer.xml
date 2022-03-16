@@ -3,6 +3,7 @@
 
     <item
         android:id="@+id/miDashboard"
+        android:icon="@drawable/dashboard"
         android:title="Dashboard"
         />
     <item
@@ -12,54 +13,63 @@
         />
     <item
         android:id="@+id/miSalesToday"
-        android:icon="@drawable/salestoday"
+        android:icon="@drawable/events"
         android:title="Sales Today"
         />
     <item
         android:id="@+id/miSalesAll"
-        android:icon="@drawable/allsales"
+        android:icon="@drawable/sales_all"
         android:title="Sales All"
         />
     <item
         android:id="@+id/miProducts"
-        android:icon="@drawable/allproducts"
+        android:icon="@drawable/products"
         android:title="All Products"
         />
     <item
         android:id="@+id/miProductsRecord"
+        android:icon="@drawable/category"
         android:title="Products Record"
         />
     <item
         android:id="@+id/miProductsNotice"
+        android:icon="@drawable/newproduct"
         android:title="Less Products"
         />
     <item
         android:id="@+id/miExpiringProducts"
+        android:icon="@drawable/productsexpiring"
         android:title="Expiring Products"
         />
     <item
         android:id="@+id/miExpiredProducts"
+        android:icon="@drawable/danger"
         android:title="Expired Products"
         />
 
     <item
         android:id="@+id/miInvoices"
+        android:icon="@drawable/invoice"
         android:title="Invoices"
         />
     <item
         android:id="@+id/miSellers"
+        android:icon="@drawable/supplier"
         android:title="All Supplier"
         />
     <item
         android:id="@+id/miAddSeller"
+        android:icon="@drawable/addseller"
         android:title="Add Supplier"
         />
     <item
         android:id="@+id/miAddProduct"
+        android:icon="@drawable/add_product"
         android:title="Add Product"
         />
     <item
         android:id="@+id/miAddProductInfo"
+        android:icon="@drawable/info"
         android:title="Add Products Info"
         />
 
@@ -68,18 +78,22 @@
 
             <item
                 android:id="@+id/miLogout"
+                android:icon="@drawable/logout"
                 android:title="Logout"
                 />
             <item
                 android:id="@+id/miSetting"
+                android:icon="@drawable/settings"
                 android:title="Settings"
                 />
             <item
                 android:id="@+id/miAboutUs"
+                android:icon="@drawable/aboutus"
                 android:title="About Us"
                 />
             <item
                 android:id="@+id/miContactUs"
+                android:icon="@drawable/contactus"
                 android:title="Contact Us"
                 />
         </menu>

@@ -14,47 +14,58 @@ import android.view.MenuItem;
 import android.widget.EditText;
 
 import com.example.myapplication.Adapters.AdapterProduct;
+import com.example.myapplication.Adapters.AdapterProductSale;
 import com.example.myapplication.Models.ModelProduct;
 import com.example.myapplication.R;
 import com.example.myapplication.helper.DbHandler;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SellProductActivity extends AppCompatActivity {
-    private AdapterProduct adapterProduct;
+    private AdapterProductSale adapterProductSale;
     private RecyclerView recyclerView;
-
+    private List<ModelProduct> products;
+    private String productId;
+    DatabaseReference reference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sell_product);
         recyclerView = findViewById(R.id.rvSellProducts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //productId = getIntent().getExtras().get("productId").toString();
+        reference = FirebaseDatabase.getInstance().getReference("Products");
         setRevyclerView();
+
+
     }
     private void setRevyclerView(){
         FirebaseRecyclerOptions<ModelProduct> options =
                 new FirebaseRecyclerOptions.Builder<ModelProduct>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Products"), ModelProduct.class)
+                        .setQuery(reference, ModelProduct.class)
                         .build();
 
-        adapterProduct = new AdapterProduct(options);
-        recyclerView.setAdapter(adapterProduct);
+        adapterProductSale = new AdapterProductSale(getApplicationContext(), options);
+        recyclerView.setAdapter(adapterProductSale);
 
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        adapterProduct.startListening();
+        adapterProductSale.startListening();
     }
     @Override
     public void onStop() {
         super.onStop();
-        adapterProduct.stopListening();
+        adapterProductSale.stopListening();
     }
 
 

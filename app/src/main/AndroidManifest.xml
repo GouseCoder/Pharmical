@@ -21,6 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
+            android:name=".Activities.SellerActivity"
+            android:exported="false" />
+        <activity
             android:name=".Activities.ForgotpasswdActivity"
             android:exported="false" />
         <activity android:name=".Activities.LoginActivity" />
@@ -33,13 +36,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activities.SignupActivity"></activity>
+        <activity android:name=".Activities.SignupActivity" />
         <activity
             android:name=".Activities.SellProductActivity"
             android:exported="false" />
         <activity
             android:name=".Activities.MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -142,9 +142,6 @@ public class AdapterSaleEditable extends RecyclerView.Adapter<AdapterSaleEditabl
 
     }
 
-
-
-
     private void showDeleteAlert(ViewHolder holder, ModelSale sale, int position) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Are you sure want to delete?");
