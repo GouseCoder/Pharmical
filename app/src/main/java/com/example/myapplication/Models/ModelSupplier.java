@@ -1,16 +1,17 @@
 package com.example.myapplication.Models;
 
 public class ModelSupplier {
-    private String sellerName,sellerEmail,sellerContactNumber,sellerAddress;
+    private String sellerName,sellerEmail,sellerContactNumber,sellerAddress, distributingProduct;
 
     public ModelSupplier() {
     }
 
-    public ModelSupplier(String sellerName, String sellerEmail, String sellerContactNumber, String sellerAddress) {
+    public ModelSupplier(String sellerName, String sellerEmail, String sellerContactNumber, String sellerAddress, String distributingProduct) {
         this.sellerName = sellerName;
         this.sellerEmail = sellerEmail;
         this.sellerContactNumber = sellerContactNumber;
         this.sellerAddress = sellerAddress;
+        this.distributingProduct = distributingProduct;
     }
 
     public String getSellerName() {
@@ -43,5 +44,13 @@ public class ModelSupplier {
 
     public void setSellerAddress(String sellerAddress) {
         this.sellerAddress = sellerAddress;
+    }
+
+    public String getDistributingProduct() {
+        return distributingProduct;
+    }
+
+    public void setDistributingProduct(String distributingProduct) {
+        this.distributingProduct = distributingProduct;
     }
 }

@@ -36,7 +36,7 @@
                     android:layout_height="100dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/medicalcare" />
+                    android:src="@drawable/mainlogo" />
             </RelativeLayout>
 
             <androidx.cardview.widget.CardView

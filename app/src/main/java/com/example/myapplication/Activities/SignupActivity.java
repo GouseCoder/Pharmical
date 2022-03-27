@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class SignupActivity extends AppCompatActivity {
     Button button4;
+    TextView alreadyhaveaccount;
     TextInputLayout email_var, medname_var,contact_var, pass_var;
     ProgressDialog progressDialog;
     FirebaseAuth fauth;
@@ -41,14 +43,15 @@ public class SignupActivity extends AppCompatActivity {
         medname_var = findViewById(R.id.medicalnmenamefield);
         contact_var = findViewById(R.id.contactfield);
         pass_var = findViewById(R.id.passwordfield);
+        alreadyhaveaccount = findViewById(R.id.logintext);
 
         fauth = FirebaseAuth.getInstance();
         if(fauth.getCurrentUser()!=null){
             sendToMain();
         }
 
-
         button4.setOnClickListener(v->validateData());
+        alreadyhaveaccount.setOnClickListener((v->sendToLogin()));
 
     }
         //

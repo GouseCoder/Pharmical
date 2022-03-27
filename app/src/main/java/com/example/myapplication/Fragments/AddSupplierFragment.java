@@ -17,7 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AddSupplierFragment extends Fragment {
-    EditText Name, Email, Contact, Adrress;
+    EditText Name, Email, Contact, Adrress, DistributingProduct;
     Button btnaddseller;
 
     @Override
@@ -73,8 +73,9 @@ public class AddSupplierFragment extends Fragment {
             String email_s = Email.getText().toString();
             String contact_s = Contact.getText().toString();
             String address_s = Adrress.getText().toString();
+            String distributingProduct_s = DistributingProduct.getText().toString();
 
-            ModelSupplier storingdatass = new ModelSupplier(name_s, email_s, contact_s, address_s);
+            ModelSupplier storingdatass = new ModelSupplier(name_s, email_s, contact_s, address_s, distributingProduct_s);
             myRef.child(name_s).setValue(storingdatass);
             Toast.makeText(getContext(),"Supplier Added",Toast.LENGTH_SHORT).show();
             makeEmpty();
@@ -95,6 +96,8 @@ public class AddSupplierFragment extends Fragment {
         Email = view.findViewById(R.id.inputSellerEmail);
         Contact = view.findViewById(R.id.inputSellerMobile);
         Adrress = view.findViewById(R.id.inputSellerAddress);
+        DistributingProduct = view.findViewById(R.id.inputSellerProduct);
         btnaddseller = view.findViewById(R.id.btnAddSeller);
+
     }
 }
