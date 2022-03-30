@@ -62,7 +62,7 @@ public class AdapterProductSale extends FirebaseRecyclerAdapter<ModelProduct, Ad
             public void onClick(View v) {
                 Intent clickonproducts = new Intent(v.getContext(), SellProductActivity.class);
                 clickonproducts.putExtra("productId", productId);
-                context.startActivity(clickonproducts);
+                //context.startActivity(clickonproducts);
 
             }
         });

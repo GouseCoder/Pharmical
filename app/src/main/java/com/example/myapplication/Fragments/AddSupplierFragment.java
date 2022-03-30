@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AddSupplierFragment extends Fragment {
-    EditText Name, Email, Contact, Adrress, DistributingProduct;
+    EditText Name, Email, Contact, Address, DistributingProduct;
     Button btnaddseller;
 
     @Override
@@ -34,7 +35,7 @@ public class AddSupplierFragment extends Fragment {
         String sellerName = Name.getText().toString().trim();
         String sellerEmail = Email.getText().toString().trim();
         String sellerContact = Contact.getText().toString().trim();
-        String sellerAddress = Adrress.getText().toString().trim();
+        String sellerAddress = Address.getText().toString().trim();
         if (sellerName.isEmpty()) {
             Name.setError("Enter Name");
             Name.requestFocus();
@@ -45,6 +46,11 @@ public class AddSupplierFragment extends Fragment {
             Name.requestFocus();
             return;
         }
+        if (sellerEmail.isEmpty()){
+            Email.setError("Enter email");
+            Email.requestFocus();
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(sellerEmail).matches())
         if (sellerContact.isEmpty()) {
             Contact.setError("Enter Mobile Number");
             Contact.requestFocus();
@@ -56,13 +62,13 @@ public class AddSupplierFragment extends Fragment {
             return;
         }
         if (sellerAddress.isEmpty()) {
-            Adrress.setError("Enter Address");
-            Adrress.requestFocus();
+            Address.setError("Enter Address");
+            Address.requestFocus();
             return;
         }
         if (sellerAddress.length() < 7) {
-            Adrress.setError("Address Should Be Up To 7 Character");
-            Adrress.requestFocus();
+            Address.setError("Address Should Be Up To 7 Character");
+            Address.requestFocus();
             return;
         }
         else {
@@ -72,7 +78,7 @@ public class AddSupplierFragment extends Fragment {
             String name_s = Name.getText().toString();
             String email_s = Email.getText().toString();
             String contact_s = Contact.getText().toString();
-            String address_s = Adrress.getText().toString();
+            String address_s = Address.getText().toString();
             String distributingProduct_s = DistributingProduct.getText().toString();
 
             ModelSupplier storingdatass = new ModelSupplier(name_s, email_s, contact_s, address_s, distributingProduct_s);
@@ -87,7 +93,8 @@ public class AddSupplierFragment extends Fragment {
         Name.setText("");
         Email.setText("");
         Contact.setText("");
-        Adrress.setText("");
+        Address.setText("");
+        DistributingProduct.setText("");
     }
 
 
@@ -95,7 +102,7 @@ public class AddSupplierFragment extends Fragment {
         Name = view.findViewById(R.id.inputSellerName);
         Email = view.findViewById(R.id.inputSellerEmail);
         Contact = view.findViewById(R.id.inputSellerMobile);
-        Adrress = view.findViewById(R.id.inputSellerAddress);
+        Address = view.findViewById(R.id.inputSellerAddress);
         DistributingProduct = view.findViewById(R.id.inputSellerProduct);
         btnaddseller = view.findViewById(R.id.btnAddSeller);
 

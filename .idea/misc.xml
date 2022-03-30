@@ -4,9 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/bg_card.xml" value="0.2703125" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/ic_baseline_call.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/ic_facebook.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/rounded_corner.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable/bg_card1.xml" value="0.2703125" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable/ic_baseline_call.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable/ic_baseline_close.xml" value="0.14635416666666667" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable/ic_baseline_qr_code_scanner.xml" value="0.14635416666666667" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable/ic_baseline_remove_red_eye.xml" value="0.14635416666666667" />

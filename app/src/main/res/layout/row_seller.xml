@@ -12,10 +12,11 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="266dp"
-            android:layout_marginRight="266dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="200dp"
+            android:layout_marginRight="200dp"
+            android:paddingLeft="15dp"
             android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -23,17 +24,21 @@
 
             <TextView
                 android:id="@+id/tvSellerName"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Umair Farooqui"
+                android:text="Gouse Shaikh"
+                android:textColor="@color/colorRed"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvSellerMobile"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvSellerProducts"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="9867503256" />
+
+                android:textStyle="bold"
+                android:text="Chocolates"
+                android:textColor="@color/purple_500"/>
 
         </LinearLayout>
 

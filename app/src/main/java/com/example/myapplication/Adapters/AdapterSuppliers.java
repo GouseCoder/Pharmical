@@ -17,24 +17,21 @@ import com.example.myapplication.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 
-import java.util.List;
+
 
 public class AdapterSuppliers extends FirebaseRecyclerAdapter<ModelSupplier, AdapterSuppliers.ViewHolder> {
-    private Context context;
+     Context context;
     public AdapterSuppliers(Context context, @NonNull FirebaseRecyclerOptions<ModelSupplier> options) {
         super(options);
         this.context = context;
     }
 
-
-
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull ModelSupplier model) {
         String SellerName = model.getSellerName();
-        String SellerContact = model.getSellerContactNumber();
+        String SellerProducts = model.getDistributingProduct();
         holder.tvname.setText(SellerName);
-        holder.tvcontact.setText(SellerContact);
-
+        holder.tvdistributingproduct.setText(SellerProducts);
         final String sellerID = getRef(position).getKey();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,14 +52,14 @@ public class AdapterSuppliers extends FirebaseRecyclerAdapter<ModelSupplier, Ada
         return new ViewHolder(view);
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-        private CardView cvSeller;
-        TextView tvname, tvcontact;
+    class ViewHolder extends RecyclerView.ViewHolder{
+        CardView cvSeller;
+        TextView tvname, tvdistributingproduct;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             cvSeller = itemView.findViewById(R.id.cvSeller);
             tvname = itemView.findViewById(R.id.tvSellerName);
-            tvcontact = itemView.findViewById(R.id.tvSellerMobile);
+            tvdistributingproduct = itemView.findViewById(R.id.tvSellerProducts);
         }
     }
 }
