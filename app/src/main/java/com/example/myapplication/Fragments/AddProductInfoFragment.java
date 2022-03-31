@@ -15,12 +15,15 @@ import android.widget.Toast;
 import com.example.myapplication.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Locale;
 
 public class AddProductInfoFragment extends Fragment {
+    FirebaseUser user;
     String textData = "";
     EditText inputItemName, inputBrandName, inputCategory, inputSize, inputLocation;
     Button additem, addBrand, addloc, addSize, addCategory;
@@ -40,11 +43,13 @@ public class AddProductInfoFragment extends Fragment {
         view.findViewById(R.id.btnAddCategory).setOnClickListener(mListener);
         view.findViewById(R.id.btnAddSize).setOnClickListener(mListener);
         view.findViewById(R.id.btnAddLocation).setOnClickListener(mListener);
-        databaseReference0 = FirebaseDatabase.getInstance().getReference("ProductName");
-        databaseReference1 = FirebaseDatabase.getInstance().getReference("ProductBrand");
-        databaseReference2 = FirebaseDatabase.getInstance().getReference("ProductCategory");
-        databaseReference3 = FirebaseDatabase.getInstance().getReference("ProductSize");
-        databaseReference4 = FirebaseDatabase.getInstance().getReference("ProductLocation");
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        databaseReference0 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("ProductName");
+        databaseReference1 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("ProductBrand");
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("ProductCategory");
+        databaseReference3 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("ProductSize");
+        databaseReference4 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("ProductLocation");
 
         return view;
     }

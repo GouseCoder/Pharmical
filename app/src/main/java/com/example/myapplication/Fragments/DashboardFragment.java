@@ -17,6 +17,8 @@ import android.widget.TextView;
 import com.example.myapplication.Adapters.AdapterProduct;
 import com.example.myapplication.Models.ModelCount;
 import com.example.myapplication.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,8 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener{
-    AdapterProduct adapterProduct;
-    private TextView tvProductsCount,tvMoreProducts,tvTodaysSaleCount,tvMoreTodaysSale,tvBrandsCount,tvMoreBrands,tvNoticeCount,tvMoreNotice, tvExpiringCount,tvMoreExpiring,tvExpiredCount,tvMoreExpired;
+
+    private TextView tvProductsCount,tvMoreProducts,tvIncome,tvTodaysSaleCount,tvMoreIncome,tvMoreTodaysSale,tvBrandsCount,tvMoreBrands,tvNoticeCount,tvMoreNotice, tvExpiringCount,tvMoreExpiring,tvExpiredCount,tvMoreExpired;
     private ActionBar actionBar;
     private Toolbar toolbar;
     int itemsCount, brandsCount, lessProductsCount;
@@ -39,14 +41,15 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         init(view);
+
+
+
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         reference1 = FirebaseDatabase.getInstance().getReference().child("Products");
-        reference2 = FirebaseDatabase.getInstance().getReference().child("ProductBrand");
-        //reference3 = (DatabaseReference) FirebaseDatabase.getInstance().getReference().child("Products").orderByChild("productQuantity").endAt(10);
         tvMoreProducts.setOnClickListener(this);
         tvMoreTodaysSale.setOnClickListener(this);
-        tvMoreBrands.setOnClickListener(this);
+        tvMoreIncome.setOnClickListener(this);
         tvMoreNotice.setOnClickListener(this);
         tvMoreExpiring.setOnClickListener(this);
         tvMoreExpired.setOnClickListener(this);
@@ -56,19 +59,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 itemsCount = (int) snapshot.getChildrenCount();
                 tvProductsCount.setText(String.valueOf(itemsCount));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        reference2.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                brandsCount = (int) snapshot.getChildrenCount();
-                tvBrandsCount.setText(String.valueOf(brandsCount));
             }
 
             @Override
@@ -91,6 +81,7 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
             }
         });
 
+
         return view;
     }
 
@@ -110,8 +101,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         tvMoreProducts = view.findViewById(R.id.tvMoreProducts);
         tvTodaysSaleCount = view.findViewById(R.id.tvTodaysSaleCount);
         tvMoreTodaysSale = view.findViewById(R.id.tvMoreTodaysSale);
-        tvBrandsCount = view.findViewById(R.id.tvBrandsCount);
-        tvMoreBrands = view.findViewById(R.id.tvMoreBrands);
+        tvIncome = view.findViewById(R.id.tvIncome);
+        tvMoreIncome = view.findViewById(R.id.tvMoreIncome);
         tvNoticeCount = view.findViewById(R.id.tvNoticeCount);
         tvMoreNotice = view.findViewById(R.id.tvMoreNotice);
         tvExpiringCount = view.findViewById(R.id.tvExpiringCount);

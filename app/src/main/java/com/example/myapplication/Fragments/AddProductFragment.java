@@ -21,6 +21,8 @@ import android.widget.Toast;
 import com.example.myapplication.R;
 import com.example.myapplication.etc.Scanner;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +37,7 @@ import java.util.List;
 
 
 public class AddProductFragment extends Fragment {
+    FirebaseUser user;
     int price, quantity;
     String  barCode, manMonthName, manYearName, expMonthName, expYearName = "";
     EditText inputProductPrice, inputProductQuantity, inputProductBarcode;
@@ -200,12 +203,13 @@ public class AddProductFragment extends Fragment {
     }
 
     private void init(View view) {
-
-        databaseReference0 = FirebaseDatabase.getInstance().getReference("ProductName");
-        databaseReference1 = FirebaseDatabase.getInstance().getReference("ProductBrand");
-        databaseReference2 = FirebaseDatabase.getInstance().getReference("ProductCategory");
-        databaseReference3 = FirebaseDatabase.getInstance().getReference("ProductSize");
-        databaseReference4 = FirebaseDatabase.getInstance().getReference("ProductLocation");
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        databaseReference0 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("ProductName");
+        databaseReference1 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("ProductBrand");
+        databaseReference2 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("ProductCategory");
+        databaseReference3 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("ProductSize");
+        databaseReference4 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("ProductLocation");
 
         spbrand = view.findViewById(R.id.spinnerBrand);
         spcategory = view.findViewById(R.id.spinnerCategory);

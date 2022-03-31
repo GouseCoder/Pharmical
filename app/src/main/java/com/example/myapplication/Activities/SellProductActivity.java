@@ -19,6 +19,8 @@ import com.example.myapplication.Models.ModelProduct;
 import com.example.myapplication.R;
 import com.example.myapplication.helper.DbHandler;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,6 +36,7 @@ public class SellProductActivity extends AppCompatActivity {
     private List<ModelProduct> products;
     private String productId;
     DatabaseReference reference;
+    FirebaseUser user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +44,9 @@ public class SellProductActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvSellProducts);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         //productId = getIntent().getExtras().get("productId").toString();
-        reference = FirebaseDatabase.getInstance().getReference("Products");
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        reference = FirebaseDatabase.getInstance().getReference("users").child(uid).child("Products");
         setRevyclerView();
 
 

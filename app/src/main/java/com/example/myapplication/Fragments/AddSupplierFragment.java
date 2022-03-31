@@ -14,10 +14,14 @@ import android.widget.Toast;
 
 import com.example.myapplication.Models.ModelSupplier;
 import com.example.myapplication.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AddSupplierFragment extends Fragment {
+    FirebaseUser user;
+    String currentuserId;
     EditText Name, Email, Contact, Address, DistributingProduct;
     Button btnaddseller;
 
@@ -72,8 +76,10 @@ public class AddSupplierFragment extends Fragment {
             return;
         }
         else {
+            user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = user.getUid();
             FirebaseDatabase firebasedatabase = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = firebasedatabase.getReference("Suppliers");
+            DatabaseReference myRef = firebasedatabase.getReference("users").child(uid).child("Suppliers");
 
             String name_s = Name.getText().toString();
             String email_s = Email.getText().toString();

@@ -38,7 +38,7 @@
                     android:layout_height="100dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/mainlogo" />
+                    android:src="@drawable/mainlogo2" />
             </RelativeLayout>
 
             <LinearLayout

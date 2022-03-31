@@ -18,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,6 +30,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SellerActivity extends AppCompatActivity {
+    FirebaseUser user;
     private String sellerID, mobileNumber;
     private Intent intent;
     private TextView tvSellerName,tvSellerAddress, tvSellerEmail, tvdistributingProduct;
@@ -45,8 +48,11 @@ public class SellerActivity extends AppCompatActivity {
 
         btnSellerContact.setOnClickListener(v->makeCall());
 
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
         sellerID = getIntent().getExtras().get("sellerID").toString();
-        reference = FirebaseDatabase.getInstance().getReference("Suppliers").child(sellerID);
+        reference = FirebaseDatabase.getInstance().getReference("users").child(uid).child("Suppliers").child(sellerID);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

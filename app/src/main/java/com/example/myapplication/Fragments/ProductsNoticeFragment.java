@@ -14,12 +14,15 @@ import com.example.myapplication.Adapters.AdapterProduct;
 import com.example.myapplication.Models.ModelProduct;
 import com.example.myapplication.R;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 
 public class ProductsNoticeFragment extends Fragment {
     RecyclerView recyclerView;
     AdapterProduct adapterProduct;
+    FirebaseUser user;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -28,10 +31,11 @@ public class ProductsNoticeFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.rvNoticeProducts);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
         FirebaseRecyclerOptions<ModelProduct> options =
                 new FirebaseRecyclerOptions.Builder<ModelProduct>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Products").orderByChild("productQuantity").endAt(10), ModelProduct.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("Products").orderByChild("productQuantity").endAt(10), ModelProduct.class)
                         .build();
 
         adapterProduct = new AdapterProduct(options);

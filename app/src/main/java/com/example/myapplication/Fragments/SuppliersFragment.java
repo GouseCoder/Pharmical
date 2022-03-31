@@ -16,12 +16,14 @@ import com.example.myapplication.Models.ModelProduct;
 import com.example.myapplication.Models.ModelSupplier;
 import com.example.myapplication.R;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SuppliersFragment extends Fragment {
     RecyclerView recyclerView;
     AdapterSuppliers adapterSuppliers;
-
+    FirebaseUser user;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -30,10 +32,12 @@ public class SuppliersFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.rvSellers);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
 
         FirebaseRecyclerOptions<ModelSupplier> options =
                 new FirebaseRecyclerOptions.Builder<ModelSupplier>()
-                        .setQuery(FirebaseDatabase.getInstance().getReference().child("Suppliers"), ModelSupplier.class)
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("Suppliers"), ModelSupplier.class)
                         .build();
 
         adapterSuppliers = new AdapterSuppliers(getContext(), options);
