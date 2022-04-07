@@ -1,7 +1,7 @@
 package com.example.myapplication.Models;
 
 public class ModelSale {
-    private int productId,saleId;
+    private String productId;
     private String productCategory,productName,productSize,productBrand;
     private int productPrice;
     private String productLocation;
@@ -9,20 +9,13 @@ public class ModelSale {
     private String productManufacture,productExpire;
     private int saleQuantity,saleDiscount,salePrice;
     private String createdAt;
-
-    public int getProductTotalPrice() {
-        return productTotalPrice;
-    }
-
-    public void setProductTotalPrice(int productTotalPrice) {
-        this.productTotalPrice = productTotalPrice;
-    }
-
     private int productTotalPrice;
 
-    public ModelSale(int productId, int saleId, String productCategory, String productName, String productSize, String productBrand, int productPrice, String productLocation, int productQuantity, String productManufacture, String productExpire, int saleQuantity, int saleDiscount, int salePrice, String createdAt) {
+    public ModelSale() {
+    }
+
+    public ModelSale(String productId, String productCategory, String productName, String productSize, String productBrand, int productPrice, String productLocation, int productQuantity, String productManufacture, String productExpire, int saleQuantity, int saleDiscount, int salePrice, String createdAt, int productTotalPrice) {
         this.productId = productId;
-        this.saleId = saleId;
         this.productCategory = productCategory;
         this.productName = productName;
         this.productSize = productSize;
@@ -36,50 +29,15 @@ public class ModelSale {
         this.saleDiscount = saleDiscount;
         this.salePrice = salePrice;
         this.createdAt = createdAt;
+        this.productTotalPrice = productTotalPrice;
     }
 
-    public ModelSale(int productId, int saleId, String productCategory, String productName, String productSize, String productBrand, int productPrice, String productLocation, int productQuantity, String productManufacture, String productExpire) {
-        this.productId = productId;
-        this.saleId = saleId;
-        this.productCategory = productCategory;
-        this.productName = productName;
-        this.productSize = productSize;
-        this.productBrand = productBrand;
-        this.productPrice = productPrice;
-        this.productLocation = productLocation;
-        this.productQuantity = productQuantity;
-        this.productManufacture = productManufacture;
-        this.productExpire = productExpire;
-    }
-
-    public ModelSale(int productId, String productCategory, String productName, String productSize, String productBrand, int productPrice, String productManufacture, String productExpire, int saleQuantity, int saleDiscount, int salePrice) {
-        this.productId = productId;
-        this.productCategory = productCategory;
-        this.productName = productName;
-        this.productSize = productSize;
-        this.productBrand = productBrand;
-        this.productPrice = productPrice;
-        this.productManufacture = productManufacture;
-        this.productExpire = productExpire;
-        this.saleQuantity = saleQuantity;
-        this.saleDiscount = saleDiscount;
-        this.salePrice = salePrice;
-    }
-
-    public int getProductId() {
+    public String getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(String productId) {
         this.productId = productId;
-    }
-
-    public int getSaleId() {
-        return saleId;
-    }
-
-    public void setSaleId(int saleId) {
-        this.saleId = saleId;
     }
 
     public String getProductCategory() {
@@ -184,5 +142,13 @@ public class ModelSale {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public int getProductTotalPrice() {
+        return productTotalPrice;
+    }
+
+    public void setProductTotalPrice(int productTotalPrice) {
+        this.productTotalPrice = productTotalPrice;
     }
 }

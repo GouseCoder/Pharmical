@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 
+import com.example.myapplication.Models.ModelProduct;
 import com.example.myapplication.R;
 import com.example.myapplication.etc.Scanner;
 import com.google.android.material.textfield.TextInputLayout;
@@ -40,11 +41,13 @@ public class AddProductFragment extends Fragment {
     FirebaseUser user;
     int price, quantity;
     String  barCode, manMonthName, manYearName, expMonthName, expYearName = "";
-    EditText inputProductPrice, inputProductQuantity, inputProductBarcode;
+    EditText inputProductPrice;
+    EditText inputProductQuantity;
+    EditText inputProductBarcode;
     Button btnAddProduct;
     private TextInputLayout tilBarcode;
     SearchableSpinner spbrand, spcategory, spsize, splocation, spitem, spinnerManufactureMonth, spinnerManufactureYear, spinnerExpireMonth, spinnerExpireYear;;
-    DatabaseReference databaseReference0, databaseReference1, databaseReference2, databaseReference3, databaseReference4;
+    DatabaseReference databaseReference0, databaseReference1, databaseReference2, databaseReference3, databaseReference4, databaseReference5;
     ArrayList<String> brandList = new ArrayList<String>();
     ArrayList<String>categoryList = new ArrayList<String>();
     ArrayList<String>sizeList = new ArrayList<String>();
@@ -59,6 +62,7 @@ public class AddProductFragment extends Fragment {
 
         init(view);
         setSpinner();
+        AddProduct();
 
         tilBarcode.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,6 +184,10 @@ public class AddProductFragment extends Fragment {
         return view;
     }
 
+    private void AddProduct(){
+
+    }
+
 
     private void scanCode() {
         IntentIntegrator intentIntegrator = new IntentIntegrator(getActivity());
@@ -210,6 +218,7 @@ public class AddProductFragment extends Fragment {
         databaseReference2 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("ProductCategory");
         databaseReference3 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("ProductSize");
         databaseReference4 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("ProductLocation");
+        databaseReference5 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("Products");
 
         spbrand = view.findViewById(R.id.spinnerBrand);
         spcategory = view.findViewById(R.id.spinnerCategory);
@@ -306,6 +315,8 @@ public class AddProductFragment extends Fragment {
             e.printStackTrace();
         }
 
+
+
         spinnerManufactureMonth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -353,6 +364,23 @@ public class AddProductFragment extends Fragment {
 
             }
         });
+
+        /*
+
+        String spBrand = spbrand.getSelectedItem().toString();
+        String spCategory = spcategory.getSelectedItem().toString();
+        String spSize = spsize.getSelectedItem().toString();
+        String  spLocation = splocation.getSelectedItem().toString();
+        String spItem = spitem.getSelectedItem().toString();
+        String Manufacture = manMonth+" "+manYear;
+        String Expiry = expMonth+" "+expYear;
+        int productPrice = Integer.parseInt(inputProductPrice.getText().toString());
+        int productQuantity = Integer.parseInt(inputProductQuantity.getText().toString());
+
+        ModelProduct product = new ModelProduct(productPrice, productQuantity, spCategory, spItem, spSize, spBrand, spLocation, Manufacture, Expiry);
+        databaseReference5.setValue(product);
+
+         */
     }
 
     public String getMonthNumberByName(String monthName)

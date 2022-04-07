@@ -83,16 +83,5 @@ public class AdapterProduct extends FirebaseRecyclerAdapter<ModelProduct, Adapte
     }
 
 
-    public void filterList(List<ModelProduct> filtredList){
-        products = new ArrayList<>();
-        notifyDataSetChanged();
-    }
-
-
-
-
-
-
-
 }
 

@@ -29,7 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class DashboardFragment extends Fragment implements View.OnClickListener{
-
+    FirebaseUser user;
     private TextView tvProductsCount,tvMoreProducts,tvIncome,tvTodaysSaleCount,tvMoreIncome,tvMoreTodaysSale,tvBrandsCount,tvMoreBrands,tvNoticeCount,tvMoreNotice, tvExpiringCount,tvMoreExpiring,tvExpiredCount,tvMoreExpired;
     private ActionBar actionBar;
     private Toolbar toolbar;
@@ -46,7 +46,10 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
 
         toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        reference1 = FirebaseDatabase.getInstance().getReference().child("Products");
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+
+        reference1 = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("Products");
         tvMoreProducts.setOnClickListener(this);
         tvMoreTodaysSale.setOnClickListener(this);
         tvMoreIncome.setOnClickListener(this);
@@ -85,15 +88,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         return view;
     }
 
-
-    private void setCountsToView()
-    {
-
-
-
-        //tvNoticeCount.setText(String.valueOf(productsNoticeCount));
-
-    }
     private void init(View view)
     {
         //barDailySales = view.findViewById(R.id.barDailySales);

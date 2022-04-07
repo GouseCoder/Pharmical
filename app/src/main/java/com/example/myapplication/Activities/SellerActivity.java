@@ -32,7 +32,6 @@ import java.util.List;
 public class SellerActivity extends AppCompatActivity {
     FirebaseUser user;
     private String sellerID, mobileNumber;
-    private Intent intent;
     private TextView tvSellerName,tvSellerAddress, tvSellerEmail, tvdistributingProduct;
     private Button btnSellerContact;
     private ActionBar actionBar;
@@ -129,7 +128,6 @@ public class SellerActivity extends AppCompatActivity {
         tvSellerEmail = findViewById(R.id.tvSellerEmail);
         tvdistributingProduct = findViewById(R.id.tvdistributingProduct);
         btnSellerContact = findViewById(R.id.btnSellerContact);
-        intent = getIntent();
         callPermission = new String[]{Manifest.permission.CALL_PHONE};
     }
 }

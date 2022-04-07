@@ -12,9 +12,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.example.myapplication.Fragments.AboutUsFragment;
 import com.example.myapplication.Fragments.AddProductFragment;
 import com.example.myapplication.Fragments.AddProductInfoFragment;
 import com.example.myapplication.Fragments.AddSupplierFragment;
+import com.example.myapplication.Fragments.ContactUsFragment;
 import com.example.myapplication.Fragments.DashboardFragment;
 import com.example.myapplication.Fragments.ExpiredProductsFragment;
 import com.example.myapplication.Fragments.ExpiringProductsFragment;
@@ -127,6 +129,18 @@ public class MainActivity extends AppCompatActivity {
                     FirebaseAuth.getInstance().signOut();
                     sendToLogin();
                     finish();
+                    break;
+                case R.id.miAboutUs:
+                    fragment1 = new AboutUsFragment();
+                    setFragment(fragment1);
+                    actionBar.setTitle("About Us");
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
+                case R.id.miContactUs:
+                    fragment1 = new ContactUsFragment();
+                    setFragment(fragment1);
+                    actionBar.setTitle("Contact Us");
+                    drawerLayout.closeDrawer(GravityCompat.START);
                     break;
                 default:
                     Toast.makeText(MainActivity.this, "Working On It", Toast.LENGTH_SHORT).show();

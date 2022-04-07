@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.Activities.SellProductActivity;
 import com.example.myapplication.Adapters.AdapterProduct;
+import com.example.myapplication.Adapters.AdapterProductSale;
 import com.example.myapplication.Adapters.AdapterSaleEditable;
 import com.example.myapplication.Models.ModelProduct;
 import com.example.myapplication.Models.ModelSale;
@@ -34,28 +35,26 @@ import com.example.myapplication.R;
 import com.example.myapplication.helper.DbHandler;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SellProductFragment extends Fragment {
-
+    FirebaseUser user;
     private CardView cvSearchProduct;
     private RecyclerView recyclerView;
     private TextView tvTotalPrice, tvSalePrice;
-    private ProgressBar progressBar;
     private LinearLayout layoutTotal;
-    private List<ModelProduct> modelProductList;
-    private List<ModelSale> modelSaleList;
-    private AdapterSaleEditable adapterSaleEditable;
-    //Bottom Sheet Dialog
-    private BottomSheetDialog bottomSheetDialog;
-    private String[] cameraPermission;
-
-
+    DatabaseReference reference0;
+    private AdapterProductSale adapterProductSale;
+    private Intent intent;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,16 +63,36 @@ public class SellProductFragment extends Fragment {
 
         init(view);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
-        adapterSaleEditable = new AdapterSaleEditable(getContext(), modelSaleList, SellProductFragment.this);
-        recyclerView.setAdapter(adapterSaleEditable);
-
-        cvSearchProduct.setOnClickListener(view1 -> sendToSellProductActivity());
-        layoutTotal.setVisibility(View.GONE);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        reference0 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("Products");
+        setRecyclerView();
 
         return view;
     }
+    private void setRecyclerView(){
+
+        FirebaseRecyclerOptions<ModelProduct> options =
+                new FirebaseRecyclerOptions.Builder<ModelProduct>()
+                        .setQuery(reference0, ModelProduct.class)
+                        .build();
+
+        adapterProductSale = new AdapterProductSale(getContext(), options);
+        recyclerView.setAdapter(adapterProductSale);
+
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        adapterProductSale.startListening();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        adapterProductSale.stopListening();
+    }
+
     private void sendToSellProductActivity() {
         Intent intent = new Intent(getContext(), SellProductActivity.class);
         startActivityForResult(intent, 200);
@@ -108,11 +127,10 @@ public class SellProductFragment extends Fragment {
     private void init(View view) {
         cvSearchProduct = view.findViewById(R.id.cvSearchProduct);
         layoutTotal = view.findViewById(R.id.layoutTotal);
-        recyclerView = view.findViewById(R.id.rvSellEditable);
+        recyclerView = view.findViewById(R.id.rvSellProducts);
         tvTotalPrice = view.findViewById(R.id.tvTotalPrice);
         tvSalePrice = view.findViewById(R.id.tvSalePrice);
-        progressBar = view.findViewById(R.id.progressBar);
-        cameraPermission = new String[]{Manifest.permission.CAMERA};
+        intent = requireActivity().getIntent();
     }
 
 }

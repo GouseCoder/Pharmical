@@ -14,6 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.google.android.gms.auth.api.identity.BeginSignInRequest;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
@@ -32,6 +38,9 @@ public class LoginActivity extends AppCompatActivity {
     Button button;
     TextView registertext, forgotpassword;
     ImageView btnGoogle;
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
+
     TextInputLayout email_var, password_var;
 
     @Override
@@ -74,6 +83,26 @@ public class LoginActivity extends AppCompatActivity {
 
 
         button.setOnClickListener(v->validateData());
+
+    }
+
+    void signIn(){
+        Intent signInIntent = gsc.getSignInIntent();
+        startActivityForResult(signInIntent,1000);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1000){
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+                task.getResult(ApiException.class);
+                sendToMain();
+            } catch (ApiException e) {
+                Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
+            }
+        }
 
     }
 
@@ -120,6 +149,7 @@ public class LoginActivity extends AppCompatActivity {
         }
 
     }
+
 
     private void sendToMain()
     {

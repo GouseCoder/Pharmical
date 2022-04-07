@@ -1,5 +1,7 @@
 package com.example.myapplication.Adapters;
 
+import static com.example.myapplication.helper.DbHandler.productId;
+
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Activities.SellProductActivity;
 import com.example.myapplication.Activities.SellerActivity;
+import com.example.myapplication.Fragments.SellProductFragment;
 import com.example.myapplication.Models.ModelProduct;
 import com.example.myapplication.R;
 import com.example.myapplication.helper.DbHandler;
@@ -22,12 +25,14 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import java.util.List;
 
 public class AdapterProductSale extends FirebaseRecyclerAdapter<ModelProduct, AdapterProductSale.ViewHolder> {
-    private List<ModelProduct> products;
-    private Context context;
 
+    public String productID;
+    private Context context;
+    SellProductActivity sellProductActivity;
     public AdapterProductSale(Context context, @NonNull FirebaseRecyclerOptions<ModelProduct> options) {
         super(options);
         this.context = context;
+        sellProductActivity = new SellProductActivity();
     }
 
 
@@ -56,13 +61,13 @@ public class AdapterProductSale extends FirebaseRecyclerAdapter<ModelProduct, Ad
         holder.tvProductCategory.setText(productCategory);
         holder.tvCount.setText(String.valueOf(position+1));
 
-        final String productId = getRef(position).getKey();
+        final String productID = getRef(position).getKey();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent clickonproducts = new Intent(v.getContext(), SellProductActivity.class);
-                clickonproducts.putExtra("productId", productId);
-                //context.startActivity(clickonproducts);
+                Intent clickonproduct = new Intent(v.getContext(), SellProductActivity.class);
+                clickonproduct.putExtra("productID", productID);
+                context.startActivity(clickonproduct);
 
             }
         });
@@ -94,4 +99,5 @@ public class AdapterProductSale extends FirebaseRecyclerAdapter<ModelProduct, Ad
             tvCount = itemView.findViewById(R.id.tvCount);
         }
     }
+
 }

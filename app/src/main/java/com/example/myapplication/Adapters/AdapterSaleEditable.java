@@ -20,13 +20,16 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.Fragments.SellProductFragment;
+import com.example.myapplication.Models.ModelProduct;
 import com.example.myapplication.Models.ModelSale;
 import com.example.myapplication.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import java.util.List;
 
-public class AdapterSaleEditable extends RecyclerView.Adapter<AdapterSaleEditable.ViewHolder> {
+public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, AdapterSaleEditable.ViewHolder> {
     private Context context;
     private List<ModelSale> modelSaleList;
     private boolean discountFlag = false;
@@ -34,12 +37,12 @@ public class AdapterSaleEditable extends RecyclerView.Adapter<AdapterSaleEditabl
     private Fragment fragment;
     private ViewHolder mHolder;
 
-    public AdapterSaleEditable(Context context, List<ModelSale> modelSales, Fragment fragment) {
-        this.context = context;
-        this.modelSaleList = modelSales;
-        this.fragment = fragment;
-    }
 
+    public AdapterSaleEditable(Context context, @NonNull FirebaseRecyclerOptions<ModelSale> options) {
+        super(options);
+        this.context = context;
+
+    }
 
 
     @NonNull
@@ -49,14 +52,14 @@ public class AdapterSaleEditable extends RecyclerView.Adapter<AdapterSaleEditabl
         return new ViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull AdapterSaleEditable.ViewHolder holder, int position) {
 
+
+    @Override
+    protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull ModelSale model) {
         this.mHolder = holder;
         ModelSale sale = modelSaleList.get(position);
         holder.unregisterTextWatcher();
-        int productId = sale.getProductId();
-        int saleId = sale.getSaleId();
+        String productId = sale.getProductId();
         String productCategory = sale.getProductCategory();
         String productName = sale.getProductName();
         String productSize = sale.getProductSize();
@@ -90,7 +93,6 @@ public class AdapterSaleEditable extends RecyclerView.Adapter<AdapterSaleEditabl
         holder.registerTextWatchers();
         holder.sumColumn();
         //End onBindViewHolder();
-
     }
 
 
@@ -149,7 +151,7 @@ public class AdapterSaleEditable extends RecyclerView.Adapter<AdapterSaleEditabl
         builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                deleteSoldProduct(sale.getSaleId(), position);
+                //deleteSoldProduct(sale.getSaleId(), position);
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

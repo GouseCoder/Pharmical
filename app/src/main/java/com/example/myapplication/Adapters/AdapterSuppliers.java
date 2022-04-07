@@ -32,6 +32,7 @@ public class AdapterSuppliers extends FirebaseRecyclerAdapter<ModelSupplier, Ada
         String SellerProducts = model.getDistributingProduct();
         holder.tvname.setText(SellerName);
         holder.tvdistributingproduct.setText(SellerProducts);
+
         final String sellerID = getRef(position).getKey();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
