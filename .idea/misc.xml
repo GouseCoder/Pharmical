@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/bg_card.xml" value="0.2703125" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/bg_card2.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/ic_baseline_call.xml" value="0.2703125" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/ic_baseline_loupe.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/ic_facebook.xml" value="0.2703125" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/round.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/rounded_corner.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable/bg_card1.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable/ic_baseline_call.xml" value="0.2703125" />
@@ -42,7 +45,7 @@
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/shimmer_seller.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/menu/menu_call.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/menu/menu_close.xml" value="0.13020833333333334" />
-        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/menu/menu_drawer.xml" value="0.13020833333333334" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/menu/menu_drawer.xml" value="0.4" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/menu/menu_main.xml" value="0.13020833333333334" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/menu/menu_sale.xml" value="0.13020833333333334" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/menu/menu_search.xml" value="0.13020833333333334" />

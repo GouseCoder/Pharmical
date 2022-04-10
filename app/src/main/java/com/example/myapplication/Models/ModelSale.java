@@ -9,12 +9,21 @@ public class ModelSale {
     private String productManufacture,productExpire;
     private int saleQuantity,saleDiscount,salePrice;
     private String createdAt;
-    private int productTotalPrice;
 
-    public ModelSale() {
+    public int getProductTotalPrice() {
+        return productTotalPrice;
     }
 
-    public ModelSale(String productId, String productCategory, String productName, String productSize, String productBrand, int productPrice, String productLocation, int productQuantity, String productManufacture, String productExpire, int saleQuantity, int saleDiscount, int salePrice, String createdAt, int productTotalPrice) {
+    public void setProductTotalPrice(int productTotalPrice) {
+        this.productTotalPrice = productTotalPrice;
+    }
+
+    private int productTotalPrice;
+
+
+    public ModelSale() {}
+
+    public ModelSale(String productId, String productCategory, String productName, String productSize, String productBrand, int productPrice, String productLocation, int productQuantity, String productManufacture, String productExpire, int saleQuantity, int saleDiscount, int salePrice, String createdAt) {
         this.productId = productId;
         this.productCategory = productCategory;
         this.productName = productName;
@@ -29,7 +38,6 @@ public class ModelSale {
         this.saleDiscount = saleDiscount;
         this.salePrice = salePrice;
         this.createdAt = createdAt;
-        this.productTotalPrice = productTotalPrice;
     }
 
     public String getProductId() {
@@ -142,13 +150,5 @@ public class ModelSale {
 
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public int getProductTotalPrice() {
-        return productTotalPrice;
-    }
-
-    public void setProductTotalPrice(int productTotalPrice) {
-        this.productTotalPrice = productTotalPrice;
     }
 }

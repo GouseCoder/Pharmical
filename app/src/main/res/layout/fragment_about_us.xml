@@ -22,9 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="20dp"
-        android:text="It is difficult for a medical owner or chemist to maintain the records of the data of medicines, records of Suppliers etc.
-To solve all related problems we have come up with the idea of “Pharmical'' App. An android application which is used by medical owners only. The motive to make this app is to help all medical owners to get them help to maintain their database, their records in very fast and efficient mode and so that they can manage their medical in a good way and give service to customers in a fast and correct manner.
-"
+        android:text="@string/about"
         android:textColor="@color/black"
         android:textSize="15dp"
         app:layout_constraintBottom_toBottomOf="parent"

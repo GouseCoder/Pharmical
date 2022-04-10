@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">myproject</string>
+    <string name="app_name">Pharmical</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="open">open</string>
     <string name="close">close</string>
@@ -7,11 +7,11 @@
 
 
     <string name="name_on_splash_activity">Pharmical</string>
-    <string name="about">The purpose of stock management software is to maintain an optimal stock level, track goods during transport between locations, receive new items, manage warehouse processes such as picking, packing, and shipping, prevent product obsolescence and spoilage, and ensure your products are never out of stock.</string>
-    <string name="mufazmi">Hi, My name is Umair Farooqui and I am a Web and Android Developer. A software engineering graduate who is seeking to find the opportunity to work in a fun and challenging working environment.</string>
-    <string name="socialcodia">Why Social Codia? The approach to each new project is individual, we treat equally every customer, regardless of the size of the company and its budget. After delivery of the project we carry out the promotion and support of the site, helping the client to attract traffic from the Internet.</string>
-    <string name="instagram_username">Pharmical</string>
-    <string name="facebook_username">Pharmical</string>
-    <string name="twitter_username">Pharmical</string>
+    <string name="about">It is difficult for a medical owner or chemist to maintain the records of the data of medicines,
+        records of Suppliers etc.To solve all related problems we have come up with the idea of “Pharmical" App.
+        An android application which is used by medical owners only. The motive to make this app is to help all medical
+        owners to get them help to maintain their database, their records in very fast and efficient mode and so that
+        they can manage their medical in a good way and give service to customers in a fast and correct manner.
+    </string>
     <string name="owner_whatsapp_number">+919594198505</string>
 </resources>

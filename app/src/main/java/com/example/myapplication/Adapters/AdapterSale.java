@@ -39,7 +39,6 @@ public class AdapterSale extends FirebaseRecyclerAdapter<ModelSale, AdapterSale.
         String productBrand = sale.getProductBrand();
         int productPrice = sale.getProductPrice();
         String productLocation = sale.getProductLocation();
-        int productQuantity = sale.getProductQuantity();
         String productManufacture = sale.getProductManufacture();
         String productExpire = sale.getProductExpire();
         int sellQuantity = sale.getSaleQuantity();

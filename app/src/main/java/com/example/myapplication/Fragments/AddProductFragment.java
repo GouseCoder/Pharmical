@@ -62,7 +62,7 @@ public class AddProductFragment extends Fragment {
 
         init(view);
         setSpinner();
-        AddProduct();
+        //AddProduct();
 
         tilBarcode.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,10 +71,6 @@ public class AddProductFragment extends Fragment {
             }
         });
 
-
-
-
-        //addProduct();
 
         databaseReference1.addValueEventListener(new ValueEventListener() {
             @Override
@@ -185,7 +181,22 @@ public class AddProductFragment extends Fragment {
     }
 
     private void AddProduct(){
+        String spBrand = spbrand.getSelectedItem().toString();
+        String spCategory = spcategory.getSelectedItem().toString();
+        String spSize = spsize.getSelectedItem().toString();
+        String  spLocation = splocation.getSelectedItem().toString();
+        String spItem = spitem.getSelectedItem().toString();
+        String SpinnerManufactureMonth = spinnerManufactureMonth.getSelectedItem().toString();
+        String SpinnerManufactureYear = spinnerManufactureYear.getSelectedItem().toString();
+        String SpinnerExpireMonth = spinnerExpireMonth.getSelectedItem().toString();
+        String SpinnerExpireYear = spinnerExpireYear.getSelectedItem().toString();
+        String Manufacture = SpinnerManufactureMonth+" "+SpinnerManufactureYear;
+        String Expiry = SpinnerExpireMonth+" "+SpinnerExpireYear;
+        int productPrice = Integer.parseInt(inputProductPrice.getText().toString());
+        int productQuantity = Integer.parseInt(inputProductQuantity.getText().toString());
 
+        ModelProduct product = new ModelProduct(productPrice, productQuantity, spCategory, spItem, spSize, spBrand, spLocation, Manufacture, Expiry);
+        databaseReference5.setValue(product);
     }
 
 
@@ -364,23 +375,6 @@ public class AddProductFragment extends Fragment {
 
             }
         });
-
-        /*
-
-        String spBrand = spbrand.getSelectedItem().toString();
-        String spCategory = spcategory.getSelectedItem().toString();
-        String spSize = spsize.getSelectedItem().toString();
-        String  spLocation = splocation.getSelectedItem().toString();
-        String spItem = spitem.getSelectedItem().toString();
-        String Manufacture = manMonth+" "+manYear;
-        String Expiry = expMonth+" "+expYear;
-        int productPrice = Integer.parseInt(inputProductPrice.getText().toString());
-        int productQuantity = Integer.parseInt(inputProductQuantity.getText().toString());
-
-        ModelProduct product = new ModelProduct(productPrice, productQuantity, spCategory, spItem, spSize, spBrand, spLocation, Manufacture, Expiry);
-        databaseReference5.setValue(product);
-
-         */
     }
 
     public String getMonthNumberByName(String monthName)

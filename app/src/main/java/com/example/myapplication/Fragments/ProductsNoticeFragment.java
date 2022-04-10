@@ -41,7 +41,6 @@ public class ProductsNoticeFragment extends Fragment {
         adapterProduct = new AdapterProduct(options);
         recyclerView.setAdapter(adapterProduct);
 
-
         return view;
     }
 

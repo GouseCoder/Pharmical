@@ -94,7 +94,7 @@
                         <TextView
                             android:id="@+id/tvProductPrice"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:text="120"
                             android:textStyle="bold" />
 
@@ -246,7 +246,7 @@
                         <TextView
                             android:id="@+id/tvProductManufacture"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_height="match_parent"
                             android:text="Feb 2021"
                             android:textStyle="bold" />
 
