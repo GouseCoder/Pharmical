@@ -39,8 +39,9 @@ import java.util.List;
 
 public class AddProductFragment extends Fragment {
     FirebaseUser user;
-    int price, quantity;
+    int Price, Quantity;
     String  barCode, manMonthName, manYearName, expMonthName, expYearName = "";
+    String Category, Item, Size, Brand, Location, Manufacture, Expiry;
     EditText inputProductPrice;
     EditText inputProductQuantity;
     EditText inputProductBarcode;
@@ -62,7 +63,7 @@ public class AddProductFragment extends Fragment {
 
         init(view);
         setSpinner();
-        //AddProduct();
+        btnAddProduct.setOnClickListener(v->AddProduct());
 
         tilBarcode.setEndIconOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,30 +174,27 @@ public class AddProductFragment extends Fragment {
 
         });
 
-
-
-
-
         return view;
     }
 
     private void AddProduct(){
-        String spBrand = spbrand.getSelectedItem().toString();
-        String spCategory = spcategory.getSelectedItem().toString();
-        String spSize = spsize.getSelectedItem().toString();
-        String  spLocation = splocation.getSelectedItem().toString();
-        String spItem = spitem.getSelectedItem().toString();
-        String SpinnerManufactureMonth = spinnerManufactureMonth.getSelectedItem().toString();
-        String SpinnerManufactureYear = spinnerManufactureYear.getSelectedItem().toString();
-        String SpinnerExpireMonth = spinnerExpireMonth.getSelectedItem().toString();
-        String SpinnerExpireYear = spinnerExpireYear.getSelectedItem().toString();
-        String Manufacture = SpinnerManufactureMonth+" "+SpinnerManufactureYear;
-        String Expiry = SpinnerExpireMonth+" "+SpinnerExpireYear;
-        int productPrice = Integer.parseInt(inputProductPrice.getText().toString());
-        int productQuantity = Integer.parseInt(inputProductQuantity.getText().toString());
+        Brand = spbrand.getSelectedItem().toString();
+        Category = spcategory.getSelectedItem().toString();
+        Size = spsize.getSelectedItem().toString();
+        Location = splocation.getSelectedItem().toString();
+        Item = spitem.getSelectedItem().toString();
+        manMonthName = spinnerManufactureMonth.getSelectedItem().toString();
+        manYearName = spinnerManufactureYear.getSelectedItem().toString();
+        expMonthName = spinnerExpireMonth.getSelectedItem().toString();
+        expYearName = spinnerExpireYear.getSelectedItem().toString();
+        Price = ConvertIntoNumeric(inputProductPrice.getText().toString());
+        Quantity = ConvertIntoNumeric(inputProductQuantity.getText().toString());
+        Manufacture = manMonthName+" "+manYearName;
+        Expiry = expMonthName+" "+expYearName;
+        ModelProduct product = new ModelProduct(Price, Quantity, Category, Item, Size, Brand, Location, Manufacture, Expiry);
+        databaseReference5.push().setValue(product);
 
-        ModelProduct product = new ModelProduct(productPrice, productQuantity, spCategory, spItem, spSize, spBrand, spLocation, Manufacture, Expiry);
-        databaseReference5.setValue(product);
+        Toast.makeText(getContext(), "Product Added", Toast.LENGTH_SHORT).show();
     }
 
 
@@ -326,55 +324,6 @@ public class AddProductFragment extends Fragment {
             e.printStackTrace();
         }
 
-
-
-        spinnerManufactureMonth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                manMonthName = String.valueOf(adapterView.getItemAtPosition(i));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        spinnerManufactureYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                manYearName = String.valueOf(adapterView.getItemAtPosition(i));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        spinnerExpireMonth.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                expMonthName = String.valueOf(adapterView.getItemAtPosition(i));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        spinnerExpireYear.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                expYearName = String.valueOf(adapterView.getItemAtPosition(i));
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
     }
 
     public String getMonthNumberByName(String monthName)
@@ -422,6 +371,18 @@ public class AddProductFragment extends Fragment {
                 monthNumber = "0";
         }
         return monthNumber;
+    }
+
+    private int ConvertIntoNumeric(String xVal)
+    {
+        try
+        {
+            return Integer.parseInt(xVal);
+        }
+        catch(Exception ex)
+        {
+            return 0;
+        }
     }
 
 

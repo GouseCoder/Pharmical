@@ -184,7 +184,7 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            android:id="@+id/tvBrandsCount"
+                            android:id="@+id/tvIncomeCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -382,13 +382,13 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         android:padding="8dp"
-                        app:layout_constraintBottom_toTopOf="@+id/tvMoreExpired"
+                        app:layout_constraintBottom_toTopOf="@+id/tvMoreBrands"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
-                            android:id="@+id/tvExpiredCount"
+                            android:id="@+id/tvBrandsCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -412,7 +412,7 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/tvMoreExpired"
+                        android:id="@+id/tvMoreBrands"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@color/colorBlue"

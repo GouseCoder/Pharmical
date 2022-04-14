@@ -18,7 +18,6 @@ import com.example.myapplication.Fragments.AddProductInfoFragment;
 import com.example.myapplication.Fragments.AddSupplierFragment;
 import com.example.myapplication.Fragments.ContactUsFragment;
 import com.example.myapplication.Fragments.DashboardFragment;
-import com.example.myapplication.Fragments.ExpiredProductsFragment;
 import com.example.myapplication.Fragments.ExpiringProductsFragment;
 import com.example.myapplication.Fragments.ProductsFragment;
 import com.example.myapplication.Fragments.ProductsNoticeFragment;
@@ -92,12 +91,6 @@ public class MainActivity extends AppCompatActivity {
                     fragment1 = new ExpiringProductsFragment();
                     setFragment(fragment1);
                     actionBar.setTitle("Expiring Products");
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                    break;
-                case R.id.miExpiredProducts:
-                    fragment1 = new ExpiredProductsFragment();
-                    setFragment(fragment1);
-                    actionBar.setTitle("Expired Products");
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
                 case R.id.miSellers:

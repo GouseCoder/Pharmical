@@ -41,11 +41,6 @@
         android:icon="@drawable/productsexpiring"
         android:title="Expiring Products"
         />
-    <item
-        android:id="@+id/miExpiredProducts"
-        android:icon="@drawable/danger"
-        android:title="Expired Products"
-        />
 
     <item
         android:id="@+id/miInvoices"

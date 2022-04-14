@@ -3,6 +3,7 @@ package com.example.myapplication.Activities;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,11 +13,13 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 
 import com.example.myapplication.Adapters.AdapterSaleEditable;
+import com.example.myapplication.Fragments.SellProductFragment;
 import com.example.myapplication.Models.ModelProduct;
 import com.example.myapplication.Models.ModelSale;
 import com.example.myapplication.R;
@@ -42,7 +45,7 @@ public class SellProductActivity extends AppCompatActivity {
     private TextView tvTotalPrice, tvSalePrice;
     FirebaseUser user;
     DatabaseReference reference, reference1;
-
+    CardView cvSearchProduct;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,7 @@ public class SellProductActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvSellEditable);
         tvTotalPrice = findViewById(R.id.tvTotalPrice);
         tvSalePrice = findViewById(R.id.tvSalePrice);
+        cvSearchProduct = findViewById(R.id.cvSearchProduct);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         user = FirebaseAuth.getInstance().getCurrentUser();
@@ -58,7 +62,13 @@ public class SellProductActivity extends AppCompatActivity {
         productId = getIntent().getExtras().get("productID").toString();
         reference = FirebaseDatabase.getInstance().getReference("users").child(uid).child("Products").child(productId);
         reference1 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales");
-
+        cvSearchProduct.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SellProductActivity.this, SellProductFragment.class);
+                startActivity(intent);
+            }
+        });
         getProducts();
         setRecyclerView();
 
@@ -101,9 +111,6 @@ public class SellProductActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
     private void setRecyclerView(){
         FirebaseRecyclerOptions<ModelSale> options = new FirebaseRecyclerOptions.Builder<ModelSale>()

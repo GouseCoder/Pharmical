@@ -27,6 +27,12 @@ import com.example.myapplication.Models.ModelSale;
 import com.example.myapplication.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import java.util.List;
@@ -38,7 +44,8 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
     private boolean priceEvenFlag = false;
     private ViewHolder mHolder;
     private Activity activity;
-
+    private String SaleID;
+    FirebaseUser user;
     public AdapterSaleEditable(@NonNull FirebaseRecyclerOptions<ModelSale> options) {
         super(options);
 
@@ -78,7 +85,10 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
         holder.tvProductExpire.setText(productExpire);
         holder.tvCount.setText(String.valueOf(position + 1));
 
-        holder.btnUpdate.setOnClickListener(v->updateSaleRecord(holder,holder.getAdapterPosition()));
+
+        //holder.btnUpdate.setOnClickListener(v->updateSaleRecord(holder,holder.getAdapterPosition()));
+
+        holder.registerTextWatchers();
         //holder.sumColumn();
 
 
@@ -134,116 +144,165 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
         private EditText inputSaleQuantity, inputSaleDiscount, inputSalePrice, inputTotalPrice;
         private CardView cvSell;
         private int position;
-        private TextWatcher quantityWatcher;
-        private TextWatcher priceWatcher;
-        private TextWatcher discountWatcher;
         private Button btnCancelUpdate, btnUpdate;
 
 
         private void registerTextWatchers() {
             Log.d("SocialCodia", "Registring Listener");
-            inputSaleQuantity.addTextChangedListener(quantityWatcher);
-            inputSalePrice.addTextChangedListener(priceWatcher);
-            inputSaleDiscount.addTextChangedListener(discountWatcher);
+            inputSaleQuantity.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    //user = FirebaseAuth.getInstance().getCurrentUser();
+                    //String uid = user.getUid();
+                    //Log.d("SocialCodia", "quantityEvent Method Called");
+                    //unregisterTextWatcher();
+                    String quan = inputSaleQuantity.getText().toString().trim();
+                    String per = inputSaleDiscount.getText().toString().trim();
+                    int quantity;
+                    int percentage;
+                    if (quan.equals("0"))
+                    {
+                        inputSaleQuantity.setText("1");
+                        quan = "1";
+                    }
+                    if (quan == null || quan.length() < 1 || quan.isEmpty())
+                        quantity = 1;
+                    else
+                        quantity = Integer.parseInt(quan);
+                    if (per == null || per.length() < 1)
+                        percentage = 0;
+                    else
+                        percentage = Integer.parseInt(per);
+                    int price = Integer.parseInt(tvProductPrice.getText().toString());
+                    int finalPrice = price * quantity;
+                    inputTotalPrice.setText(String.valueOf(finalPrice));
+
+                    //modelSaleList.get(getAdapterPosition()).set(salePrice);
+                    int salePrice = percentageDec(finalPrice, percentage);
+                    //FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales").child(SaleID).child("salePrice").setValue(salePrice);
+                    //modelSaleList.get(getAdapterPosition()).setSalePrice(salePrice);
+                    inputSalePrice.setText(String.valueOf(salePrice));
+                    //FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales").child(SaleID).child("salePrice").setValue(salePrice);
+                    //modelSaleList.get(getAdapterPosition()).setSalePrice(salePrice);
+                    //FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales").child(SaleID).child("productTotalPrice").setValue(finalPrice);
+                    //modelSaleList.get(getAdapterPosition()).setProductTotalPrice(finalPrice);
+                    //sumColumn();
+                }
+            });
+
+            inputSalePrice.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    //user = FirebaseAuth.getInstance().getCurrentUser();
+                    //String uid = user.getUid();
+                    Log.d("SocialCodia", "PriceEvent Method Called");
+                    //unregisterTextWatcher();
+                    int totalPrice = Integer.parseInt(inputTotalPrice.getText().toString().trim());
+                    String sellPriceString = inputSalePrice.getText().toString().trim();
+                    if (sellPriceString.trim().length() > 0) {
+                        int sellPrice = Integer.parseInt(inputSalePrice.getText().toString().trim());
+                        int discount = percentage(sellPrice, totalPrice);
+                        inputSaleDiscount.setText(String.valueOf(discount));
+                        //FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales").child(String.valueOf(getRef(position).getKey())).child("productTotalPrice").setValue(totalPrice);
+                        //FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales").child(String.valueOf(getRef(position).getKey())).child("salePrice").setValue(sellPrice);
+                        //modelSaleList.get(getAdapterPosition()).setProductTotalPrice(totalPrice);
+                        //modelSaleList.get(getAdapterPosition()).setSalePrice(sellPrice);
+                        //sumColumn();
+                    } else {
+                        inputSaleDiscount.setText(String.valueOf(100));
+                    }
+                }
+            });
+
+            inputSaleDiscount.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    //user = FirebaseAuth.getInstance().getCurrentUser();
+                    //String uid = user.getUid();
+                    Log.d("SocialCodia", "discountInputEvent Method Called");
+                    //unregisterTextWatcher();
+                    int totalPrice = Integer.parseInt(inputTotalPrice.getText().toString().trim());
+                    String sellPriceString = inputSalePrice.getText().toString().trim();
+                    int salePrice = 0;
+                    if (sellPriceString.trim().length()>0)
+                    {
+                        salePrice = Integer.parseInt(sellPriceString);
+                    }
+                    String per = inputSaleDiscount.getText().toString().trim();
+                    int percentage;
+                    if (per == null || per.length() < 1)
+                        percentage = 0;
+                    else
+                        percentage = Integer.parseInt(per);
+                    int price = percentageDec(totalPrice, percentage);
+                    inputSalePrice.setText(String.valueOf(price));
+                    //FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales").child(SaleID).child("salePrice").setValue(price);
+                    //modelSaleList.get(getAdapterPosition()).setSalePrice(price);
+                    //FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales").child(SaleID).child("productTotalPrice").setValue(totalPrice);
+                    //modelSaleList.get(getAdapterPosition()).setProductTotalPrice(totalPrice);
+                    //sumColumn();
+                }
+            });
         }
 
-        private void unregisterTextWatcher() {
-            Log.d("SocialCodia", "UnRegistering Listener");
-            inputSaleQuantity.removeTextChangedListener(quantityWatcher);
-            inputSalePrice.removeTextChangedListener(priceWatcher);
-            inputSaleDiscount.removeTextChangedListener(discountWatcher);
-        }
 
-        // Ask a question about multiple casting on stack. till then create a new adapter class
-        // for selltoseller and use that adapter for that. Thanks
-        /*
         public void sumColumn()
         {
-            int salePrice = 0;
-            int totalPrice = 0;
-            for (ModelSale sale : modelSaleList)
-            {
-                salePrice = salePrice + sale.getSalePrice();
-                totalPrice = totalPrice + sale.getProductTotalPrice();
-            }
-            ((SellProductActivity)activity).updateTotalValue(totalPrice,salePrice);
-        }
+            user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = user.getUid();
+            FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    int salePrice = 0;
+                    int totalPrice = 0;
+                    for( DataSnapshot ds :snapshot.getChildren()) {
+                        ModelSale sale = ds.getValue(ModelSale.class);
+                        Integer saleprice = sale.getSalePrice();
+                        Integer totalprice = sale.getProductTotalPrice();
+                        salePrice = salePrice + saleprice;
+                        totalPrice = totalPrice + totalprice;
+                    }
 
-         */
+                    SellProductActivity sellProductActivity = new SellProductActivity();
+                    sellProductActivity.updateTotalValue(totalPrice,salePrice);
+                }
 
-        private void priceEvent() {
-            Log.d("SocialCodia", "PriceEvent Method Called");
-            unregisterTextWatcher();
-            int totalPrice = Integer.parseInt(inputTotalPrice.getText().toString().trim());
-            String sellPriceString = inputSalePrice.getText().toString().trim();
-            if (sellPriceString.trim().length() > 0) {
-                int sellPrice = Integer.parseInt(inputSalePrice.getText().toString().trim());
-                int discount = percentage(sellPrice, totalPrice);
-                inputSaleDiscount.setText(String.valueOf(discount));
-                modelSaleList.get(getAdapterPosition()).setProductTotalPrice(totalPrice);
-                modelSaleList.get(getAdapterPosition()).setSalePrice(sellPrice);
-                //sumColumn();
-            } else {
-                inputSaleDiscount.setText(String.valueOf(100));
-            }
-            registerTextWatchers();
-        }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
 
-        private void quantityEvent() {
-            Log.d("SocialCodia", "quantityEvent Method Called");
-            unregisterTextWatcher();
-            String quan = inputSaleQuantity.getText().toString().trim();
-            String per = inputSaleDiscount.getText().toString().trim();
-            int quantity;
-            int percentage;
-            if (quan.equals("0"))
-            {
-                inputSaleQuantity.setText("1");
-                quan = "1";
-            }
-            if (quan == null || quan.length() < 1 || quan.isEmpty())
-                quantity = 1;
-            else
-                quantity = Integer.parseInt(quan);
-            if (per == null || per.length() < 1)
-                percentage = 0;
-            else
-                percentage = Integer.parseInt(per);
-            int price = Integer.parseInt(tvProductPrice.getText().toString());
-            int finalPrice = price * quantity;
-            inputTotalPrice.setText(String.valueOf(finalPrice));
-//            modelSaleList.get(getAdapterPosition()).set(salePrice);
-            int salePrice = percentageDec(finalPrice, percentage);
-            modelSaleList.get(getAdapterPosition()).setSalePrice(salePrice);
-            inputSalePrice.setText(String.valueOf(salePrice));
-            modelSaleList.get(getAdapterPosition()).setSalePrice(salePrice);
-            modelSaleList.get(getAdapterPosition()).setProductTotalPrice(finalPrice);
-            //sumColumn();
-            registerTextWatchers();
-        }
+                }
+            });
 
-        private void discountInputEvent() {
-            Log.d("SocialCodia", "discountInputEvent Method Called");
-            unregisterTextWatcher();
-            int totalPrice = Integer.parseInt(inputTotalPrice.getText().toString().trim());
-            String sellPriceString = inputSalePrice.getText().toString().trim();
-            int salePrice = 0;
-            if (sellPriceString.trim().length()>0)
-            {
-                salePrice = Integer.parseInt(sellPriceString);
-            }
-            String per = inputSaleDiscount.getText().toString().trim();
-            int percentage;
-            if (per == null || per.length() < 1)
-                percentage = 0;
-            else
-                percentage = Integer.parseInt(per);
-            int price = percentageDec(totalPrice, percentage);
-            inputSalePrice.setText(String.valueOf(price));
-            modelSaleList.get(getAdapterPosition()).setSalePrice(price);
-            modelSaleList.get(getAdapterPosition()).setProductTotalPrice(totalPrice);
-            //sumColumn();
-            registerTextWatchers();
         }
 
         private int percentage(int partialValue, int totalValue) {
@@ -280,8 +339,6 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
             btnUpdate.setVisibility(View.GONE);
         }
 
-
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvProductName = itemView.findViewById(R.id.tvProductName);
@@ -301,6 +358,7 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
             btnCancelUpdate = itemView.findViewById(R.id.btnCancelUpdate);
             btnUpdate = itemView.findViewById(R.id.btnUpdate);
 
+            position = getAdapterPosition();
 
         }
     }

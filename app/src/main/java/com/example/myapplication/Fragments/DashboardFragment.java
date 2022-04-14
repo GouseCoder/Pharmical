@@ -50,12 +50,13 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         String uid = user.getUid();
 
         reference1 = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("Products");
+        reference2 = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("ProductBrand");
         tvMoreProducts.setOnClickListener(this);
         tvMoreTodaysSale.setOnClickListener(this);
         tvMoreIncome.setOnClickListener(this);
         tvMoreNotice.setOnClickListener(this);
         tvMoreExpiring.setOnClickListener(this);
-        tvMoreExpired.setOnClickListener(this);
+        //tvMoreBrands.setOnClickListener(this);
 
         reference1.addValueEventListener(new ValueEventListener() {
             @Override
@@ -69,6 +70,21 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
 
             }
         });
+
+        reference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                brandsCount = (int) snapshot.getChildrenCount();
+                tvBrandsCount.setText(String.valueOf(brandsCount));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
         Query query = reference1.orderByChild("productQuantity").endAt(10);
         query.addValueEventListener(new ValueEventListener() {
@@ -101,8 +117,8 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
         tvMoreNotice = view.findViewById(R.id.tvMoreNotice);
         tvExpiringCount = view.findViewById(R.id.tvExpiringCount);
         tvMoreExpiring = view.findViewById(R.id.tvMoreExpiring);
-        tvExpiredCount = view.findViewById(R.id.tvExpiredCount);
-        tvMoreExpired = view.findViewById(R.id.tvMoreExpired);
+        tvBrandsCount = view.findViewById(R.id.tvBrandsCount);
+        tvMoreBrands = view.findViewById(R.id.tvMoreProducts);
 
 
     }
@@ -126,11 +142,6 @@ public class DashboardFragment extends Fragment implements View.OnClickListener{
             case R.id.tvMoreExpiring:
                 fragment = new ExpiringProductsFragment();
                 actionBar.setTitle("Expiring Products");
-                setFragment(fragment);
-                break;
-            case R.id.tvMoreExpired:
-                fragment = new ExpiredProductsFragment();
-                actionBar.setTitle("Expired Products");
                 setFragment(fragment);
                 break;
         }
