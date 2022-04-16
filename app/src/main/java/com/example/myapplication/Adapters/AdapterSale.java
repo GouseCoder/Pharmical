@@ -3,6 +3,7 @@ package com.example.myapplication.Adapters;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,32 +21,31 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import java.util.List;
 
 public class AdapterSale extends FirebaseRecyclerAdapter<ModelSale, AdapterSale.ViewHolder> {
-    private List<ModelSale> modelSaleList;
+
     private Context context;
 
-    public AdapterSale(Context context, @NonNull FirebaseRecyclerOptions<ModelSale> options, ModelSale modelSales) {
+    public AdapterSale(Context context, @NonNull FirebaseRecyclerOptions<ModelSale> options) {
         super(options);
         this.context = context;
-        this.modelSaleList = (List<ModelSale>) modelSales;
+
     }
 
     @Override
     protected void onBindViewHolder(@NonNull ViewHolder holder, int position, @NonNull ModelSale model) {
-        ModelSale sale = modelSaleList.get(position);
 
-        String productCategory = sale.getProductCategory();
-        String productName = sale.getProductName();
-        String productSize = sale.getProductSize();
-        String productBrand = sale.getProductBrand();
-        int productPrice = sale.getProductPrice();
-        String productLocation = sale.getProductLocation();
-        String productManufacture = sale.getProductManufacture();
-        String productExpire = sale.getProductExpire();
-        int sellQuantity = sale.getSaleQuantity();
-        int saleDiscount = sale.getSaleDiscount();
-        int salePrice = sale.getSalePrice();
-        int saleQuantity = sale.getSaleQuantity();
-        String createdAt = sale.getCreatedAt();
+        String productCategory = model.getProductCategory();
+        String productName = model.getProductName();
+        String productSize = model.getProductSize();
+        String productBrand = model.getProductBrand();
+        int productPrice = model.getProductPrice();
+        String productLocation = model.getProductLocation();
+        String productManufacture = model.getProductManufacture();
+        String productExpire = model.getProductExpire();
+        int sellQuantity = model.getSaleQuantity();
+        int saleDiscount = model.getSaleDiscount();
+        int salePrice = model.getSalePrice();
+        int saleQuantity = model.getSaleQuantity();
+        String createdAt = model.getCreatedAt();
 
         holder.tvProductName.setText(productName);
         holder.tvProductSize.setText("("+productSize+")");
@@ -59,17 +59,14 @@ public class AdapterSale extends FirebaseRecyclerAdapter<ModelSale, AdapterSale.
         holder.tvProductExpire.setText(productExpire);
         holder.tvCount.setText(String.valueOf(position+1));
         holder.tvTotalPrice.setText(String.valueOf(productPrice*saleQuantity));
-        holder.cvSell.setOnLongClickListener(view -> {
-            showDeleteAlert(holder,sale,position);
-            return true;
-        });
 
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View view = LayoutInflater.from(context).inflate(R.layout.row_sale,parent,false);
+        return new ViewHolder(view);
     }
 
     private void showDeleteAlert(ViewHolder holder, ModelSale sale, int position)
@@ -91,17 +88,6 @@ public class AdapterSale extends FirebaseRecyclerAdapter<ModelSale, AdapterSale.
         });
         builder.show();
     }
-
-    public void updateList(List<ModelSale> list){
-        modelSaleList = list;
-        notifyDataSetChanged();
-    }
-
-    @Override
-    public int getItemCount() {
-        return modelSaleList.size();
-    }
-
 
 
     public class ViewHolder extends RecyclerView.ViewHolder{

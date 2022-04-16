@@ -16,6 +16,7 @@ import com.example.myapplication.Fragments.AboutUsFragment;
 import com.example.myapplication.Fragments.AddProductFragment;
 import com.example.myapplication.Fragments.AddProductInfoFragment;
 import com.example.myapplication.Fragments.AddSupplierFragment;
+import com.example.myapplication.Fragments.AllSalesFragment;
 import com.example.myapplication.Fragments.ContactUsFragment;
 import com.example.myapplication.Fragments.DashboardFragment;
 import com.example.myapplication.Fragments.ExpiringProductsFragment;
@@ -23,6 +24,7 @@ import com.example.myapplication.Fragments.ProductsFragment;
 import com.example.myapplication.Fragments.ProductsNoticeFragment;
 import com.example.myapplication.Fragments.SellProductFragment;
 import com.example.myapplication.Fragments.SuppliersFragment;
+import com.example.myapplication.Fragments.TodaySaleFragment;
 import com.example.myapplication.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
@@ -75,6 +77,18 @@ public class MainActivity extends AppCompatActivity {
                     actionBar.setTitle("Sell Product");
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
+                case R.id.miSalesToday:
+                    fragment1 = new TodaySaleFragment();
+                    setFragment(fragment1);
+                    actionBar.setTitle("Sales Today");
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
+                case R.id.miSalesAll:
+                    fragment1 = new AllSalesFragment();
+                    setFragment(fragment1);
+                    actionBar.setTitle("All Sales");
+                    drawerLayout.closeDrawer(GravityCompat.START);
+                    break;
                 case R.id.miProducts:
                     fragment1 = new ProductsFragment();
                     setFragment(fragment1);
@@ -117,7 +131,6 @@ public class MainActivity extends AppCompatActivity {
                     actionBar.setTitle("Add Product Info");
                     drawerLayout.closeDrawer(GravityCompat.START);
                     break;
-
                 case R.id.miLogout:
                     FirebaseAuth.getInstance().signOut();
                     sendToLogin();

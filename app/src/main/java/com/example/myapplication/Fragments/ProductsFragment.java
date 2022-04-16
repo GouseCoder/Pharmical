@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,12 +34,34 @@ public class ProductsFragment extends Fragment {
     RecyclerView recyclerView;
     AdapterProduct adapterProduct;
     FirebaseUser user;
+    EditText inputSearch;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_products, container, false);
         recyclerView = view.findViewById(R.id.rvProducts);
+        inputSearch = view.findViewById(R.id.inputSearchProduct);
+
+
+        inputSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                searchData();
+            }
+        });
+
+
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
@@ -52,8 +76,6 @@ public class ProductsFragment extends Fragment {
         return view;
     }
 
-
-
     @Override
     public void onStart() {
         super.onStart();
@@ -64,5 +86,20 @@ public class ProductsFragment extends Fragment {
     public void onStop() {
         super.onStop();
         adapterProduct.stopListening();
+    }
+
+    private void searchData(){
+        String product = inputSearch.getText().toString().trim();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        FirebaseRecyclerOptions<ModelProduct> options =
+                new FirebaseRecyclerOptions.Builder<ModelProduct>()
+                        .setQuery(FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("Products")
+                                .orderByChild("ProductName").startAt(product).endAt(product+"\ufaff"), ModelProduct.class)
+                        .build();
+
+        adapterProduct = new AdapterProduct(options);
+        adapterProduct.startListening();
+        recyclerView.setAdapter(adapterProduct);
     }
 }

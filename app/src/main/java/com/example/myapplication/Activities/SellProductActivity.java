@@ -14,8 +14,10 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.myapplication.Adapters.AdapterSaleEditable;
@@ -40,11 +42,14 @@ import java.util.List;
 
 public class SellProductActivity extends AppCompatActivity {
     String productId;
+    private static List<ModelSale> modelSaleList;
     private AdapterSaleEditable adapterSaleEditable;
     private RecyclerView recyclerView;
     private TextView tvTotalPrice, tvSalePrice;
     FirebaseUser user;
-    DatabaseReference reference, reference1;
+    Button sellprod;
+    private ValueEventListener mlistener;
+    DatabaseReference reference, reference1,referenceprodid;
     CardView cvSearchProduct;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +59,17 @@ public class SellProductActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvSellEditable);
         tvTotalPrice = findViewById(R.id.tvTotalPrice);
         tvSalePrice = findViewById(R.id.tvSalePrice);
+        sellprod = findViewById(R.id.sellprod);
         cvSearchProduct = findViewById(R.id.cvSearchProduct);
+        modelSaleList = new ArrayList<>();
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();
         productId = getIntent().getExtras().get("productID").toString();
-        reference = FirebaseDatabase.getInstance().getReference("users").child(uid).child("Products").child(productId);
         reference1 = FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales");
+        referenceprodid = FirebaseDatabase.getInstance().getReference("users").child(uid).child("Products").child(productId);
+
         cvSearchProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,55 +77,62 @@ public class SellProductActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        getProducts();
-        setRecyclerView();
 
-    }
-    private void getProducts() {
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-        int saleQuantity = 0;
-        int saleDiscount = 0;
-        int salePrice = 0;
-        int productTotalPrice = 0;
-        Date currentTime = Calendar.getInstance().getTime();
-        String createdAt = currentTime.toString();
-        String productID = productId;
+        sellprod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                user = FirebaseAuth.getInstance().getCurrentUser();
+                String uid = user.getUid();
+                FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales").removeValue();
+                Toast.makeText(getApplicationContext(), "Product sold!!", Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        FirebaseDatabase.getInstance().getReference("users").child(uid).child("Products").child(productId).addValueEventListener(new ValueEventListener() {
+        mlistener = new ValueEventListener() {
+            int saleQuantity = 0;
+            int saleDiscount = 0;
+            int salePrice = 0;
+            int productTotalPrice = 0;
+            Date currentTime = Calendar.getInstance().getTime();
+            String createdAt = currentTime.toString();
+            String productID = productId;
+
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    String categoryList = snapshot.child("productCategory").getValue().toString();
-                    String itemList = snapshot.child("productName").getValue().toString();
-                    String sizeList = snapshot.child("productSize").getValue().toString();
-                    String brandList = snapshot.child("productBrand").getValue().toString();
-                    int PriceList = Integer.parseInt(snapshot.child("productPrice").getValue().toString());
-                    String Locationlist = snapshot.child("productLocation").getValue().toString();
-                    int ProductQuantity = Integer.parseInt(snapshot.child("productQuantity").getValue().toString());
-                    String ManufactureList = snapshot.child("productManufacture").getValue().toString();
-                    String ExpireList = snapshot.child("productExpire").getValue().toString();
+                String categoryList = snapshot.child("productCategory").getValue().toString();
+                String itemList = snapshot.child("productName").getValue().toString();
+                String sizeList = snapshot.child("productSize").getValue().toString();
+                String brandList = snapshot.child("productBrand").getValue().toString();
+                int PriceList = Integer.parseInt(snapshot.child("productPrice").getValue().toString());
+                String Locationlist = snapshot.child("productLocation").getValue().toString();
+                int ProductQuantity = Integer.parseInt(snapshot.child("productQuantity").getValue().toString());
+                String ManufactureList = snapshot.child("productManufacture").getValue().toString();
+                String ExpireList = snapshot.child("productExpire").getValue().toString();
 
                 ModelSale sale = new ModelSale(productID, categoryList, itemList, sizeList,
                         brandList, PriceList, Locationlist, ProductQuantity, ManufactureList, ExpireList,
                         saleQuantity, saleDiscount, salePrice, createdAt);
 
                 reference1.push().setValue(sale);
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        });
+        };
+        referenceprodid.addListenerForSingleValueEvent(mlistener);
+
+        setRecyclerView();
+
     }
+
     private void setRecyclerView(){
         FirebaseRecyclerOptions<ModelSale> options = new FirebaseRecyclerOptions.Builder<ModelSale>()
                 .setQuery(reference1, ModelSale.class)
                 .build();
 
-        adapterSaleEditable = new AdapterSaleEditable(options);
+        adapterSaleEditable = new AdapterSaleEditable(modelSaleList, options);
         recyclerView.setAdapter(adapterSaleEditable);
         }
 

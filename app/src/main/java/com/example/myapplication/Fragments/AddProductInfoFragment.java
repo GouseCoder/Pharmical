@@ -63,7 +63,7 @@ public class AddProductInfoFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             inputItemName.setText("");
-                            Toast.makeText(getContext(), "Data inserted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Item Added", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -74,7 +74,7 @@ public class AddProductInfoFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             inputBrandName.setText("");
-                            Toast.makeText(getContext(), "Data inserted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Brand Added", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -86,7 +86,7 @@ public class AddProductInfoFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             inputCategory.setText("");
-                            Toast.makeText(getContext(), "Data inserted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Category Added", Toast.LENGTH_SHORT).show();
                         }
                     });
                     break;
@@ -97,7 +97,7 @@ public class AddProductInfoFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             inputSize.setText("");
-                            Toast.makeText(getContext(), "Data inserted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Size Added", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -107,7 +107,7 @@ public class AddProductInfoFragment extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             inputLocation.setText("");
-                            Toast.makeText(getContext(), "Data inserted", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Location Added", Toast.LENGTH_SHORT).show();
                         }
                     });
                     break;

@@ -385,8 +385,4 @@ public class AddProductFragment extends Fragment {
         }
     }
 
-
-
-
-
 }
