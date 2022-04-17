@@ -136,7 +136,7 @@ public class SellProductActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapterSaleEditable);
         }
 
-    public void updateTotalValue(int totalPrice, int salePrice) {
+    public void updateTotalValue(long totalPrice, long salePrice) {
         tvTotalPrice.setText(String.valueOf(totalPrice));
         tvSalePrice.setText(String.valueOf(salePrice));
     }

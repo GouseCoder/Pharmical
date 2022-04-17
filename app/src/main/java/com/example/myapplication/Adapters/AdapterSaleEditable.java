@@ -60,7 +60,6 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
     @Override
     public AdapterSaleEditable.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_sale_editable, parent, false);
-
         return new ViewHolder(view);
     }
 
@@ -95,7 +94,7 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
 
         holder.btnUpdate.setOnClickListener(v->updateSaleRecord(holder,holder.getAdapterPosition()));
         holder.registerTextWatchers();
-        //holder.sumColumn();
+        holder.sumColumn();
     }
 
     private void updateSaleRecord(ViewHolder holder, int position)
@@ -192,7 +191,6 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
 
                     }
                 });
-
             }
 
             @Override
@@ -200,7 +198,6 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
 
             }
         });
-
 
     }
     public void alertLowQuantity(ViewHolder holder) {
@@ -235,14 +232,14 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
         private Button btnCancelUpdate, btnUpdate;
 
         private void registerTextWatchers() {
-            Log.d("SocialCodia", "Registring Listener");
+            Log.d("Pharmical", "Registring Listener");
             inputSaleQuantity.addTextChangedListener(quantityWatcher);
             inputSalePrice.addTextChangedListener(priceWatcher);
             inputSaleDiscount.addTextChangedListener(discountWatcher);
         }
 
         private void unregisterTextWatcher() {
-            Log.d("SocialCodia", "UnRegistering Listener");
+            Log.d("Pharmical", "UnRegistering Listener");
             inputSaleQuantity.removeTextChangedListener(quantityWatcher);
             inputSalePrice.removeTextChangedListener(priceWatcher);
             inputSaleDiscount.removeTextChangedListener(discountWatcher);
@@ -252,15 +249,14 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
         {
             user = FirebaseAuth.getInstance().getCurrentUser();
             String uid = user.getUid();
-            FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales").addValueEventListener(new ValueEventListener() {
+            FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales").addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    int salePrice = 0;
-                    int totalPrice = 0;
+                    long salePrice = 0;
+                    long totalPrice = 0;
                     for( DataSnapshot ds :snapshot.getChildren()) {
-                        ModelSale sale = ds.getValue(ModelSale.class);
-                        Integer saleprice = sale.getSalePrice();
-                        Integer totalprice = sale.getProductTotalPrice();
+                        long saleprice = ds.child("salePrice").getValue(Long.class);
+                        long totalprice = ds.child("productTotalPrice").getValue(Long.class);
                         salePrice = salePrice + saleprice;
                         totalPrice = totalPrice + totalprice;
                     }
@@ -286,7 +282,7 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
                 int sellPrice = Integer.parseInt(inputSalePrice.getText().toString().trim());
                 int discount = percentage(sellPrice, totalPrice);
                 inputSaleDiscount.setText(String.valueOf(discount));
-                //sumColumn();
+                sumColumn();
             } else {
                 inputSaleDiscount.setText(String.valueOf(100));
             }
@@ -318,7 +314,7 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
             inputTotalPrice.setText(String.valueOf(finalPrice));
             int salePrice = percentageDec(finalPrice, percentage);
             inputSalePrice.setText(String.valueOf(salePrice));
-            //sumColumn();
+            sumColumn();
             registerTextWatchers();
         }
 
@@ -340,7 +336,7 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
                 percentage = Integer.parseInt(per);
             int price = percentageDec(totalPrice, percentage);
             inputSalePrice.setText(String.valueOf(price));
-            //sumColumn();
+            sumColumn();
             registerTextWatchers();
         }
 
