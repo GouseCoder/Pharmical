@@ -21,7 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class AddSupplierFragment extends Fragment {
     FirebaseUser user;
-    String currentuserId;
     EditText Name, Email, Contact, Address, DistributingProduct;
     Button btnaddseller;
 

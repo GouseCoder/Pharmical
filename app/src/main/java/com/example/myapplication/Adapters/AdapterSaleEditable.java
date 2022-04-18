@@ -94,7 +94,7 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
 
         holder.btnUpdate.setOnClickListener(v->updateSaleRecord(holder,holder.getAdapterPosition()));
         holder.registerTextWatchers();
-        holder.sumColumn();
+        //holder.sumColumn();
     }
 
     private void updateSaleRecord(ViewHolder holder, int position)
@@ -222,7 +222,7 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvProductName, tvProductSize, tvProductCategory, tvSaleTime, tvProductPrice, tvProductBrand, tvProductManufacture, tvProductExpire, tvCount;
+        private TextView tvTotalPrice, tvSalePrice, tvProductName, tvProductSize, tvProductCategory, tvSaleTime, tvProductPrice, tvProductBrand, tvProductManufacture, tvProductExpire, tvCount;
         private EditText inputSaleQuantity, inputSaleDiscount, inputSalePrice, inputTotalPrice;
         private CardView cvSell;
         private int position;
@@ -258,11 +258,10 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
                         long saleprice = ds.child("salePrice").getValue(Long.class);
                         long totalprice = ds.child("productTotalPrice").getValue(Long.class);
                         salePrice = salePrice + saleprice;
+
                         totalPrice = totalPrice + totalprice;
                     }
-
-                    SellProductActivity sellProductActivity = new SellProductActivity();
-                    sellProductActivity.updateTotalValue(totalPrice,salePrice);
+                    //updateTotalValue(totalPrice,salePrice);
                 }
 
                 @Override
@@ -270,7 +269,11 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
 
                 }
             });
+        }
 
+        public void updateTotalValue(long totalPrice, long salePrice) {
+            tvTotalPrice.setText(String.valueOf(totalPrice));
+            tvSalePrice.setText(String.valueOf(salePrice));
         }
 
         private void priceEvent() {
@@ -282,7 +285,7 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
                 int sellPrice = Integer.parseInt(inputSalePrice.getText().toString().trim());
                 int discount = percentage(sellPrice, totalPrice);
                 inputSaleDiscount.setText(String.valueOf(discount));
-                sumColumn();
+                //sumColumn();
             } else {
                 inputSaleDiscount.setText(String.valueOf(100));
             }
@@ -314,7 +317,7 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
             inputTotalPrice.setText(String.valueOf(finalPrice));
             int salePrice = percentageDec(finalPrice, percentage);
             inputSalePrice.setText(String.valueOf(salePrice));
-            sumColumn();
+            //sumColumn();
             registerTextWatchers();
         }
 
@@ -336,7 +339,7 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
                 percentage = Integer.parseInt(per);
             int price = percentageDec(totalPrice, percentage);
             inputSalePrice.setText(String.valueOf(price));
-            sumColumn();
+            //sumColumn();
             registerTextWatchers();
         }
 

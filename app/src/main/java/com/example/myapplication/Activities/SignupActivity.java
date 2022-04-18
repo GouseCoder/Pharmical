@@ -127,7 +127,8 @@ public class SignupActivity extends AppCompatActivity {
                                             sendToLogin();
                                         }
                                         else{
-                                            Toast.makeText(getApplicationContext(), "Error ! "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getApplicationContext(), "Error ! "+task.getException().getMessage(),
+                                                    Toast.LENGTH_SHORT).show();
                                             progressDialog.dismiss();
                                         }
                                     }

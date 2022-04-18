@@ -57,8 +57,7 @@ public class SellProductActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sell_product);
 
         recyclerView = findViewById(R.id.rvSellEditable);
-        tvTotalPrice = findViewById(R.id.tvTotalPrice);
-        tvSalePrice = findViewById(R.id.tvSalePrice);
+
         sellprod = findViewById(R.id.sellprod);
         cvSearchProduct = findViewById(R.id.cvSearchProduct);
         modelSaleList = new ArrayList<>();
@@ -136,10 +135,7 @@ public class SellProductActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapterSaleEditable);
         }
 
-    public void updateTotalValue(long totalPrice, long salePrice) {
-        tvTotalPrice.setText(String.valueOf(totalPrice));
-        tvSalePrice.setText(String.valueOf(salePrice));
-    }
+
 
     @Override
     public void onStart() {

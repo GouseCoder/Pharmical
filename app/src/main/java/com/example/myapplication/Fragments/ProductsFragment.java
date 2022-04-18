@@ -43,25 +43,6 @@ public class ProductsFragment extends Fragment {
         recyclerView = view.findViewById(R.id.rvProducts);
         inputSearch = view.findViewById(R.id.inputSearchProduct);
 
-
-        inputSearch.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                searchData();
-            }
-        });
-
-
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         user = FirebaseAuth.getInstance().getCurrentUser();
         String uid = user.getUid();

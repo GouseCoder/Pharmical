@@ -126,7 +126,6 @@ public class SellProductFragment extends Fragment {
 
     private void init(View view) {
         cvSearchProduct = view.findViewById(R.id.cvSearchProduct);
-        layoutTotal = view.findViewById(R.id.layoutTotal);
         recyclerView = view.findViewById(R.id.rvSellProducts);
         tvTotalPrice = view.findViewById(R.id.tvTotalPrice);
         tvSalePrice = view.findViewById(R.id.tvSalePrice);

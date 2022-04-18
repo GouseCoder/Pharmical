@@ -65,59 +65,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-        <LinearLayout
-            android:id="@+id/layoutTotal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="2"
-            android:background="#f44336"
-            android:padding="10dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textColor="@color/colorWhite"
-                    android:text="Total Price: " />
-                <TextView
-                    android:id="@+id/tvTotalPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textStyle="bold"
-                    android:text="0"
-                    android:textSize="17sp"/>
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_horizontal"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="17sp"
-                    android:textColor="@color/colorWhite"
-                    android:text="Sale Price : " />
-                <TextView
-                    android:id="@+id/tvSalePrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorWhite"
-                    android:textStyle="bold"
-                    android:text="0"
-                    android:textSize="17sp"/>
-            </LinearLayout>
-
-        </LinearLayout>
 
         <Button
             android:id="@+id/sellprod"

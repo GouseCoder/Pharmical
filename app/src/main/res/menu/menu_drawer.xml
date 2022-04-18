@@ -77,11 +77,6 @@
                 android:title="Logout"
                 />
             <item
-                android:id="@+id/miSetting"
-                android:icon="@drawable/settings"
-                android:title="Settings"
-                />
-            <item
                 android:id="@+id/miAboutUs"
                 android:icon="@drawable/aboutus"
                 android:title="About Us"
