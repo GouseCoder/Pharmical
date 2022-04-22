@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -93,6 +94,7 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
         sellID = getRef(position).getKey();
 
         holder.btnUpdate.setOnClickListener(v->updateSaleRecord(holder,holder.getAdapterPosition()));
+        holder.btnCancelUpdate.setOnClickListener(v->remove());
         holder.registerTextWatchers();
         //holder.sumColumn();
     }
@@ -140,6 +142,16 @@ public class AdapterSaleEditable extends FirebaseRecyclerAdapter<ModelSale, Adap
         reference1.child("productTotalPrice").setValue(total);
         reduceAmount();
         moveRecord(FromPath, ToPath);
+    }
+
+
+
+
+    private void remove()
+    {
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales").removeValue();
     }
 
     private void moveRecord(DatabaseReference fromPath, final DatabaseReference toPath) {

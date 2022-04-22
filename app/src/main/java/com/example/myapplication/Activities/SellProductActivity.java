@@ -80,9 +80,7 @@ public class SellProductActivity extends AppCompatActivity {
         sellprod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                user = FirebaseAuth.getInstance().getCurrentUser();
-                String uid = user.getUid();
-                FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales").removeValue();
+                removeData();
                 Toast.makeText(getApplicationContext(), "Product sold!!", Toast.LENGTH_SHORT).show();
             }
         });
@@ -135,7 +133,12 @@ public class SellProductActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapterSaleEditable);
         }
 
-
+    private void removeData()
+    {
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        FirebaseDatabase.getInstance().getReference("users").child(uid).child("Sales").removeValue();
+    }
 
     @Override
     public void onStart() {

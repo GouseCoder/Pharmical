@@ -5,12 +5,16 @@
       <map>
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/bg_card.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/bg_card2.xml" value="0.2703125" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/ic_baseline_account_circle.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/ic_baseline_call.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/ic_baseline_loupe.xml" value="0.2703125" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/ic_circle.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/ic_facebook.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/round.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable-v24/rounded_corner.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable/bg_card1.xml" value="0.2703125" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable/circle_shape.xml" value="0.2703125" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable/circular_progressbar.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable/ic_baseline_call.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable/ic_baseline_close.xml" value="0.14635416666666667" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable/ic_baseline_qr_code_scanner.xml" value="0.14635416666666667" />
@@ -18,6 +22,7 @@
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable/ic_baseline_search.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/drawable/view_circle.xml" value="0.2703125" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/activity_check.xml" value="0.1816123188405797" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/activity_edit_profile.xml" value="0.22010869565217392" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/activity_forgotpasswd.xml" value="0.23278985507246377" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/activity_main.xml" value="0.16530797101449277" />
@@ -37,12 +42,15 @@
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/fragment_products.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/fragment_products_notice.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/fragment_sell_product.xml" value="0.24864130434782608" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/fragment_settings.xml" value="0.22010869565217392" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/fragment_suppliers.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/fragment_today_sale.xml" value="0.20244565217391305" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/nav_header.xml" value="0.22010869565217392" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/row_product.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/row_sale.xml" value="0.24864130434782608" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/row_sale_editable.xml" value="0.24864130434782608" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/row_seller.xml" value="0.23641304347826086" />
+        <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/row_setting.xml" value="0.22010869565217392" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/shimmer_product.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/layout/shimmer_seller.xml" value="0.25416666666666665" />
         <entry key="..\:/Projects/Android/MyApplication/app/src/main/res/menu/menu_call.xml" value="0.25416666666666665" />
